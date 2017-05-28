@@ -92,7 +92,7 @@ public class ServletPregunta extends HttpServlet {
 			String descripcion = request.getParameter("descripcion"); 
 			String pPregunta = request.getParameter("pregunta"); 
 			pregunta.agregarPreguntaEvaluacion(tema, subtema, descripcion, pPregunta, evaluacion, curso);
-			response.setIntHeader("refresh", -1);
+			
 			
 		}else if(request.getParameter("parar")!=null){
 			response.sendRedirect("MenuPrincipal.jsp");
