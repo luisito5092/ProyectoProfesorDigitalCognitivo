@@ -65,6 +65,25 @@ public class ServletPregunta extends HttpServlet {
 					request.getParameter("DescripcionSubtema"),request.getParameter("DescripcionTema"));
 			listaRespuestasIncorrectas.clear();
 			response.sendRedirect("Preguntas3.jsp");
+		}else if(request.getParameter("eliminarPregunta")!=null){
+			DtoPregunta dtoPregunta = new DtoPregunta();
+			
+			dtoPregunta.setTema(request.getParameter("tema"));
+			dtoPregunta.setSubtema(request.getParameter("subtema"));
+			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
+			dtoPregunta.setPregunta(request.getParameter("pregunta"));
+			
+			pregunta.eliminarPregunta(dtoPregunta);
+		}else if(request.getParameter("modificarPregunta")!=null){
+			if (request.getParameter("decripcion")=="Selección Única"){
+				response.sendRedirect("../ActualizarPreguntaSU.jsp?pregunta="+request.getParameter("pregunta")+"&descripcion="+
+						request.getParameter("descripcion")+"&tema="+request.getParameter("tema")+
+						"&subtema="+request.getParameter("subtema"));
+			}else{
+				response.sendRedirect("../ActualizarPregunta.jsp?pregunta="+request.getParameter("pregunta")+"&descripcion="+
+						request.getParameter("descripcion"));				
+			}
+			
 		}
 	}
 
@@ -96,6 +115,24 @@ public class ServletPregunta extends HttpServlet {
 			
 		}else if(request.getParameter("parar")!=null){
 			response.sendRedirect("MenuPrincipal.jsp");
+		}else if(request.getParameter("modificarPregunta")!=null){
+			DtoPregunta dtoPregunta = new DtoPregunta();
+			
+			dtoPregunta.setTema(request.getParameter("tema"));
+			dtoPregunta.setSubtema(request.getParameter("subtema"));
+			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
+			dtoPregunta.setPregunta(request.getParameter("pregunta"));
+			
+			pregunta.eliminarPregunta(dtoPregunta);
 		}
+		
 	}
 }
+
+
+
+
+
+
+
+

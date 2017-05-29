@@ -59,11 +59,14 @@
 									<td><%=pregunta.getDescripcionPregunta() %> </td>
 									<td><%=pregunta.getDescripcionAyuda() %> </td>
 									<td>  
-										<form method="POST" action="/ServletPregunta">
+										<form method="GET" action="/ServletPregunta">
+										
 											<button type="submit" name="modificarPregunta"> <span class="glyphicon glyphicon-pencil"></span></button>
 											<button type="submit" name="eliminarPregunta"> <span class="glyphicon glyphicon-trash"></span></button>
-											<button> <span class="glyphicon glyphicon-plus"></span></button>
-											<input type="hidden" value="<%=pregunta.getPregunta()  %>" name="DescripcionPreguntaActual">
+											<input type="hidden" value="<%=pregunta.getPregunta()  %>" name="pregunta">
+											<input type="hidden" value="<%=SubtemaActual  %>" name="subtema">
+											<input type="hidden" value="<%=TemaActual  %>" name="tema">
+											<input type="hidden" value="<%=pregunta.getDescripcionPregunta()  %>" name="descripcion">
 										</form>
 									</td>
         				</tr>

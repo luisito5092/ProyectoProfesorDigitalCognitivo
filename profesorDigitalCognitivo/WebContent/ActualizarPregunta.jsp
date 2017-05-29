@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Registro Evaluación Sumativa</title>
+    <title>Actualizar pregunta</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
     <script src="js/jquery-1.7.min.js"></script>
@@ -11,18 +11,24 @@
 </head>
 
 </style>
-<body>	
+<body>
+	<%
+	 String SubtemaActual=session.getAttribute("subtema").toString();
+	 String TemaActual=session.getAttribute("tema").toString();
+	 String pregunta = request.getParameter("pregunta");
+	 String descripcion = request.getParameter("descripcion");
+	 %>	
 	<header>
 		<div="main">
 			<div class="wrap">
-		       		<h2>Registro de <a class="fuenteLetra3">Nueva Pregunta</a></h2>
+		       		<h2>Actualización de <a class="fuenteLetra3"> Pregunta</a></h2>
 	 		</div>
 		</div> 
 	
 
 	<div class="contenido">
 		<form action="/ServletPregunta" method="get">
-			<p class="fuenteLetra4">Ingrese todos los datos que se solicitan a continuación.</p>
+			<p class="fuenteLetra4">Modifique los datos que se desee a continuación.</p>
 			<table>
 			<tr>
 				<td class="fuenteLetra5">Pregunta</td>
@@ -38,17 +44,9 @@
 			</tr>
 
 			<tr>
-				<td class="fuenteLetra5">Tipo de Pregunta</td>
-				<td><INPUT TYPE="radio" name="radios" value="Seleccion Unica" CHECKED>Selección Única<BR>
-					<INPUT TYPE="radio" name="radios" value="Complete" >Complete<BR>
-            		<INPUT TYPE="radio" name="radios" value="Desarrollo">Desarrollo<BR></td>
-				<td></td>
-			</tr>
-			
-			<tr>
 			<td><input type="hidden" value="<%=session.getAttribute("DescripcionTema").toString() %>" name="DescripcionTema"></td>
 			<td><input type="hidden" value="<%=session.getAttribute("DescripcionSubtema").toString() %>" name="DescripcionSubtema"></td>
-			<td><input type="submit" value="Registrar" name="guardarPregunta" /></td>
+			<td><input type="submit" value="Guardar" name="actualizacionPregunta" /></td>
 			</tr>
 		</table>
 	</form>

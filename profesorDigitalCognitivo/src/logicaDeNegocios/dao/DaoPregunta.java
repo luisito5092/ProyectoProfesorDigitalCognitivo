@@ -33,17 +33,18 @@ public class DaoPregunta {
 		try {
 			String sql;
 			state= ConexionSingleton.conectar().createStatement();
-			if(dtoPregunta.getDescripcionPregunta().equals("Selecci�n �nica")){
-				sql="DELETE FROM seleccionUnica WHERE pregunta="+dtoPregunta.getPregunta()+" AND descripcion=" +
-						dtoPregunta.getDescripcionPregunta()+";";
-			;
-			}else if(dtoPregunta.getDescripcionPregunta().equals("Complete")){
-				sql="DELETE FROM complete WHERE pregunta="+dtoPregunta.getPregunta()+" AND descripcion=" +
-						dtoPregunta.getDescripcionPregunta()+";";
-			}else{
-				sql="DELETE FROM desarrollo WHERE pregunta="+dtoPregunta.getPregunta()+" AND descripcion=" +
-						dtoPregunta.getDescripcionPregunta()+";";
-			}
+			
+			String tema= dtoPregunta.getTema();
+			String subTema = dtoPregunta.getSubtema();
+			String descripcion = dtoPregunta.getDescripcionPregunta();
+			String pregunta = dtoPregunta.getPregunta();
+			
+			sql="DELETE FROM preguntaSubtema where pregunta='"+pregunta+"' and descripcion ='"+descripcion+"' "
+					+ "and subtema_descripcion='"+subTema+"' and subtema_tema_descripcion='"+tema+"'  "
+					+ "and pregunta not in (select preguntaSubtema_pregunta from preguntaEvaluacion  "
+												+ "where subtema_descripcion='"+subTema+"' "
+												+ "and subtema_tema_descripcion='"+tema+"' "
+												+ "group by preguntaSubtema_pregunta)";
 			state.executeUpdate(sql);
 			
 		} catch (SQLException e1) {
