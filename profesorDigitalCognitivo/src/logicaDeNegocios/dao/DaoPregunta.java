@@ -134,6 +134,23 @@ public class DaoPregunta {
 			}
 			return listarPreguntas;
 		}
+	
+		public DtoPregunta getDatosPregunta(DtoPregunta dtoPregunta){
+			DtoPregunta dto = new DtoPregunta();
+			try {
+					state= ConexionSingleton.conectar().createStatement();
+					String Sql="SELECT descripcionAyuda, respuestaCorrecta FROM preguntaSubtema"
+							+ " where pregunta='1' and descripcion ='Complete' 
+		and subtema_descripcion='LSP' and subtema_tema_descripcion='SOLID';  ";
+					state.executeUpdate(Sql);
+					;
+					return dto;
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			return dto;
+		}
 		
 	public void AgregarRespuestasIncorrectas(ArrayList<String> respuestas,String pregunta,String descripcionSubtema,String descripcionTema){
 		for(int i=0;i<respuestas.size();i++){

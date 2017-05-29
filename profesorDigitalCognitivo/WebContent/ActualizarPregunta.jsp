@@ -1,5 +1,11 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ page import = "logicaDeNegocios.dao.DaoPregunta"%>
+<%@ page import = "logicaDeNegocios.dto.DtoPregunta"%>
 <html>
 <head>
     <title>Actualizar pregunta</title>
@@ -17,6 +23,8 @@
 	 String TemaActual=session.getAttribute("tema").toString();
 	 String pregunta = request.getParameter("pregunta");
 	 String descripcion = request.getParameter("descripcion");
+	 DaoPregunta daoPregunta=new DaoPregunta();
+	 DtoPregunta dtoPregunta=new DtoPregunta();
 	 %>	
 	<header>
 		<div="main">
