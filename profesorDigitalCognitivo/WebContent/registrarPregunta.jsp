@@ -39,7 +39,7 @@
 
 			<tr>
 				<td class="fuenteLetra5">Tipo de Pregunta</td>
-				<td><INPUT TYPE="radio" name="radios" value="Selección Única" CHECKED>Selección Unica<BR>
+				<td><INPUT TYPE="radio" name="radios" value="Selección Única" CHECKED>Seleccion Unica<BR>
 					<INPUT TYPE="radio" name="radios" value="Complete" >Complete<BR>
             		<INPUT TYPE="radio" name="radios" value="Desarrollo">Desarrollo<BR></td>
 				<td></td>

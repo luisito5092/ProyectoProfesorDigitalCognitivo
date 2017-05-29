@@ -54,28 +54,31 @@ public class ServletTema extends HttpServlet {
 				response.sendRedirect("Tema.jsp");
 			}
 		}else if(request.getParameter("editarTema")!=null){
+			response.sendRedirect("actualizarTema.jsp?codigoCurso="+request.getParameter("codigoCurso")+"&Descripcion="+request.getParameter("Descripcion"));
 			
 		}else if(request.getParameter("botonEliminarTema")!=null){
-			datoTema.eliminarTema(request.getParameter("Descripcion"));
+			datoTema.eliminarTema(request.getParameter("Descripcion"), request.getParameter("codigoCurso"));
 			response.sendRedirect("Tema.jsp");
 		}
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DtoTema dtoTema = new DtoTema();
+		DaoTema daoTema = new DaoTema();
 		
 		if(request.getParameter("agregarSubtema")!=null){
 			HttpSession session = request.getSession(true);
 			session.setAttribute("DescripcionTema",request.getParameter("Descripcion"));
 			response.sendRedirect("Subtema2.jsp");
 			
-		}else if(request.getParameter("editarTema")!=null){
-			
-		}else if(request.getParameter("eliminarTema")!=null){
-			
+		}else if(request.getParameter("realizarActualizacion")!=null){
+			String descripcion = request.getParameter("tema");			
+			dtoTema.setDescripcion(descripcion);			
+			daoTema.actualizarTema(dtoTema);
+			response.sendRedirect("Tema.jsp");
 		}
 	}
 

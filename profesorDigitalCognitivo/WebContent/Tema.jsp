@@ -55,16 +55,16 @@
 				<% for(int i=0; i<listaT.listarTemas(session.getAttribute("IdentificadorCurso").toString()).size();i++){
 					tema=listaT.listarTemas(session.getAttribute("IdentificadorCurso").toString()).get(i);
 				%>
-									<td><%=tema.getDescripcion() %></td>
-									<td> 
-										<form method="get" action="/ServletTema">
-											<button name="editarTema"> <span class="glyphicon glyphicon-pencil"></span></button>
-											<button type="submit" name="botonEliminarTema"> <span class="glyphicon glyphicon-trash"></span></button>
-											<input type="hidden" value=<%=tema.getDescripcion() %> name="Descripcion">
-											<button type="submit" name="agregarSubtema"> <span class="glyphicon glyphicon-plus"></span></button>
-											
-										</form>
-									</td>
+								<td><%=tema.getDescripcion() %></td>
+								<td> 
+									<form method="get" action="/ServletTema">
+										<button type="submit" name="editarTema"> <span class="glyphicon glyphicon-pencil"></span></button>
+										<button type="submit" name="botonEliminarTema"> <span class="glyphicon glyphicon-trash"></span></button>
+										<input type="hidden" value=<%=tema.getDescripcion() %> name="Descripcion">
+										<input type="hidden" value=<%=session.getAttribute("IdentificadorCurso")%> name="codigoCurso">
+										<button type="submit" name="agregarSubtema"> <span class="glyphicon glyphicon-plus"></span></button>
+									</form>
+								</td>
         				</tr>
         				<%
         					}

@@ -43,7 +43,7 @@ public class ServletPregunta extends HttpServlet {
 			pasarPregunta.setDescripcionPregunta(request.getParameter("radios"));
 			pasarPregunta.setRespuestaCorrecta(request.getParameter("respuestaCorrecta"));
 			
-			if(request.getParameter("radios").equals("Selecci�n �nica")){
+			if(request.getParameter("radios").equals("Seleccion Unica")){
 				pregunta.crearPregunta(pasarPregunta.getPregunta(),pasarPregunta.getDescripcionPregunta(),
 						pasarPregunta.getDescripcionAyuda(), pasarPregunta.getRespuestaCorrecta(),
 						request.getParameter("DescripcionSubtema"), request.getParameter("DescripcionTema"));

@@ -23,7 +23,7 @@ public class DaoTema {
 			e1.printStackTrace();
 		}
 	}
-	
+		
 	public void agregarTemaCurso(String cursoTema,String descripcionTema){
 			try {
 				state= ConexionSingleton.conectar().createStatement();
@@ -35,10 +35,11 @@ public class DaoTema {
 			}
 		}
 	
-	public void eliminarTema(String pDescripcion){
+	public void eliminarTema(String pDescripcion, String pCurso){
 		try {
 			state= ConexionSingleton.conectar().createStatement();
-			String sql="DELETE FROM tema WHERE descripcion='" + pDescripcion+ "';";
+			String sql="DELETE FROM curso_has_tema WHERE tema_descripcion='" + pDescripcion+ "' and "
+					+ "curso_codigo ='"+pCurso+"' ;";
 			state.executeUpdate(sql);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -49,7 +50,7 @@ public class DaoTema {
 	public void actualizarTema(DtoTema dtoTema){
 		try {
 			state= ConexionSingleton.conectar().createStatement();
-			String sql="UPDATE tema SET descripcion=" + dtoTema.getDescripcion()+ ";";
+			String sql="UPDATE tema SET descripcion='" + dtoTema.getDescripcion()+ "';";
 			state.executeUpdate(sql);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block

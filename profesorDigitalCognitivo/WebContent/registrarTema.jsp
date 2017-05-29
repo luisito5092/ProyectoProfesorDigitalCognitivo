@@ -18,7 +18,7 @@
 	<header>
 		<div="main">
 			<div class="wrap">
-		       		<h2>Registrar un <a class="fuenteLetra3">Tema <%=session.getAttribute("IdentificadorCurso").toString() %></a></h2>
+		       		<h2>Registrar un <a class="fuenteLetra3">Tema </a></h2>
 	 		</div>
 		</div> 
 	

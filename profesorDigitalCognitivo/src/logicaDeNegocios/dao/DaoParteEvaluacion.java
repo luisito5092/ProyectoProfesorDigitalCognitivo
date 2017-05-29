@@ -29,13 +29,15 @@ public class DaoParteEvaluacion {
 		try {
 			state= ConexionSingleton.conectar().createStatement();
 			 		    
-			String sql= "SELECT  subtema_tema_descripcion,subtema_descripcion,descripcion,pregunta"+ 
-					" from preguntaSubtema join parteEvaluacion join curso_has_tema join preguntaEvaluacion"+
-					" on evaluacion_nombre='"+nombreEvaluacion+"'"+
-					" and subtema_tema_descripcion = tema_descripcion and curso_codigo = '"+curso+"'"+
+			String sql= "SELECT  subtema_tema_descripcion,subtema_descripcion, descripcion,pregunta"+ 
+					" from preguntaSubtema  join parteEvaluacion join curso_has_tema join preguntaEvaluacion"+
+					" on evaluacion_curso_codigo = curso_codigo and subtema_tema_descripcion = tema_descripcion"+ 
+					" and curso_codigo='"+curso+"' and evaluacion_nombre = '"+nombreEvaluacion+"' "+ 
+					" and tipo = descripcion" +
+					
 					" and pregunta not in (select preguntaSubtema_pregunta from preguntaEvaluacion"+
-					" where parteEvaluacion_evaluacion_nombre = '"+nombreEvaluacion+"'"+
-					" and parteEvaluacion_evaluacion_curso_codigo = '"+curso+"')"+
+												" where parteEvaluacion_evaluacion_nombre = '"+nombreEvaluacion+"'"+
+												" and parteEvaluacion_evaluacion_curso_codigo = '"+curso+"')"+
 					" group by subtema_tema_descripcion,subtema_descripcion,descripcion,pregunta"+
 					" order by subtema_tema_descripcion,subtema_descripcion,descripcion,pregunta;";
 
