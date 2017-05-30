@@ -46,6 +46,7 @@
               <th class="col-xs-2">Pregunta</th>
               <th class="col-xs-2">Respuesta</th>
               <th class="col-xs-3">Correcto</th>
+              <th class="col-xs-3">Generar PDF</th>
             
             </tr>
           </thead>
@@ -63,6 +64,7 @@
 									<td><%=respuesta.getPregunta() %> </td>
 									<td><%=respuesta.getRespuesta() %>
 									<td><%=respuesta.isCorrecto() %></td>
+									<td><button type="submit" name="estadoEvaluacion" value="<%=evaluacion.getNombreEvaluacion()%>">  <span class="glyphicon glyphicon-stats"></span></button></td>
         				</tr>
         				<%
         					}
