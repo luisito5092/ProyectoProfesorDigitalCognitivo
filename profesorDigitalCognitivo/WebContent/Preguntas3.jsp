@@ -66,6 +66,7 @@
 											<input type="hidden" value="<%=pregunta.getPregunta()  %>" name="pregunta">
 											<input type="hidden" value="<%=SubtemaActual  %>" name="subtema">
 											<input type="hidden" value="<%=TemaActual  %>" name="tema">
+											<input type="hidden" value="<%=pregunta.getDescripcionAyuda()  %>" name="ayuda">
 											<input type="hidden" value="<%=pregunta.getDescripcionPregunta()  %>" name="descripcion">
 										</form>
 									</td>

@@ -53,19 +53,25 @@ public class DaoPregunta {
 		}
 	}
 	
-	public void actualizarPregunta(DtoPregunta dtoPregunta){
+	public void actualizarPregunta(DtoPregunta dtoPregunta, String preguntaOriginal){
 		try {
 			String sql;
 			state= ConexionSingleton.conectar().createStatement();
-			if(dtoPregunta.getDescripcionPregunta().equals("Selección Única")){
-				sql="UPDATE seleccionUnica SET  pregunta="+dtoPregunta.getPregunta()+", descripcion=" +
-						dtoPregunta.getDescripcionPregunta()+", descripcionAyuda="+dtoPregunta.getDescripcionAyuda()+
-						", respuestaCorrecta="+dtoPregunta.getRespuestaCorrecta()+", subtema="+ dtoPregunta.getSubtema()+";";
-			}else{
-				sql="UPDATE desarrollo SET  pregunta="+dtoPregunta.getPregunta()+", descripcion=" +
-						dtoPregunta.getDescripcionPregunta()+", descripcionAyuda="+dtoPregunta.getDescripcionAyuda()+
-						", respuestaCorrecta="+dtoPregunta.getRespuestaCorrecta()+", subtema="+ dtoPregunta.getSubtema()+";";
-			}
+			
+			String tema= dtoPregunta.getTema();
+			String subtema = dtoPregunta.getSubtema();
+			String descripcion = dtoPregunta.getDescripcionPregunta();
+			String pregunta = dtoPregunta.getPregunta();
+			String ayuda = dtoPregunta.getDescripcionAyuda();
+			String respuesta = dtoPregunta.getRespuestaCorrecta();						
+			
+			sql="UPDATE preguntaSubtema set pregunta='"+pregunta+"', descripcionAyuda='"+ayuda+"', respuestaCorrecta='"+respuesta+"'"
+					+ "where pregunta='"+preguntaOriginal+"' and descripcion='"+descripcion+"' "
+					+ "	and subtema_descripcion='"+subtema+"' and subtema_tema_descripcion='"+tema+"'"
+					+ " and pregunta not in (select preguntaSubtema_pregunta from preguntaEvaluacion "
+												+ " where subtema_descripcion='"+subtema+"'"
+												+ " and subtema_tema_descripcion='"+tema+"'"
+												+ " group by preguntaSubtema_pregunta);";
 			state.executeUpdate(sql);
 			
 		} catch (SQLException e1) {
@@ -130,29 +136,31 @@ public class DaoPregunta {
 			return listarPreguntas;
 		}
 	
-		public DtoPregunta getDatosPregunta(DtoPregunta dtoPregunta, String tema, String subtema){
-			DtoPregunta dto = new DtoPregunta();
+		public DtoPregunta getDatosPregunta(DtoPregunta dtoPregunta){
 			try {
 				state= ConexionSingleton.conectar().createStatement();
 				String Sql="SELECT descripcionAyuda, respuestaCorrecta FROM preguntaSubtema"+
-						" where pregunta="+dtoPregunta.getPregunta()+" and descripcion ='"+dtoPregunta.getDescripcionPregunta()+"' "
-						+ "	and subtema_descripcion='"+subtema+"' and subtema_tema_descripcion='"+tema+"';  ";
-				state.executeUpdate(Sql);
+					" where pregunta='"+dtoPregunta.getPregunta()+"' and descripcion ='"+dtoPregunta.getDescripcionPregunta()+"'"
+				+ 	" and subtema_descripcion='"+dtoPregunta.getSubtema()+"' and subtema_tema_descripcion='"+dtoPregunta.getTema()+"';";
 				
-					return dto;
+				ResultSet rs1 = state.executeQuery(Sql);
+				while(rs1.next()){
+					dtoPregunta.setDescripcionAyuda(rs1.getString(1));
+					dtoPregunta.setRespuestaCorrecta(rs1.getString(2));;
+				}
+				
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			return dto;
+			return dtoPregunta;
 		}
-		
 		
 	public void AgregarRespuestasIncorrectas(ArrayList<String> respuestas,String pregunta,String descripcionSubtema,String descripcionTema){
 		for(int i=0;i<respuestas.size();i++){
 			try {
 				state= ConexionSingleton.conectar().createStatement();
-				String Sql="INSERT INTO respuestaIncorrecta VALUES('"+respuestas.get(i)+"','Selecci�n �nica','"+pregunta+"','"+descripcionSubtema+"','"+descripcionTema+"');";
+				String Sql="INSERT INTO respuestaIncorrecta VALUES('"+respuestas.get(i)+"','Selección Única','"+pregunta+"','"+descripcionSubtema+"','"+descripcionTema+"');";
 				state.executeUpdate(Sql);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block

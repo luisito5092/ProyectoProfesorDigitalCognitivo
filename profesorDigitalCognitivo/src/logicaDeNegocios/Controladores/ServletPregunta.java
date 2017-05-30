@@ -70,23 +70,27 @@ public class ServletPregunta extends HttpServlet {
 		}
 		else if(request.getParameter("eliminarPregunta")!=null){
 			DtoPregunta dtoPregunta = new DtoPregunta();
-			
 			dtoPregunta.setTema(request.getParameter("tema"));
 			dtoPregunta.setSubtema(request.getParameter("subtema"));
 			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
 			dtoPregunta.setPregunta(request.getParameter("pregunta"));
 			
 			pregunta.eliminarPregunta(dtoPregunta);
+			response.sendRedirect("Preguntas3.jsp");
+			
 		}else if(request.getParameter("modificarPregunta")!=null){
+			pasarPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
+			pasarPregunta.setPregunta(request.getParameter("pregunta"));
+			pasarPregunta.setTema(request.getParameter("tema"));
+			pasarPregunta.setSubtema(request.getParameter("subtema"));
+			DtoPregunta datos = pregunta.getDatosPregunta(pasarPregunta);
+			
 			if (request.getParameter("decripcion")=="Selección Única"){
-				response.sendRedirect("../ActualizarPreguntaSU.jsp	?pregunta="+request.getParameter("pregunta")+"&descripcion="+
-						request.getParameter("descripcion")+"&tema="+request.getParameter("tema")+
-						"&subtema="+request.getParameter("subtema"));
+				response.sendRedirect("../ActualizarPreguntaSU.jsp?pregunta="+request.getParameter("pregunta")+"&descripcion="+
+						request.getParameter("descripcion")+"&ayuda="+datos.getDescripcionAyuda()+
+						"&respuesta="+datos.getRespuestaCorrecta());
 			}else{
-				pasarPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
-				pasarPregunta.setPregunta(request.getParameter("pregunta"));
-				DtoPregunta datos = pregunta.getDatosPregunta(pasarPregunta, request.getParameter("tema"),request.getParameter("subtema"));
-				response.sendRedirect("../ActualizarPregunta.jsp?pregunta="+request.getParameter("pregunta")+"&descripcion="+
+				response.sendRedirect("../ActualizarPreguntas.jsp?pregunta="+request.getParameter("pregunta")+"&descripcion="+
 						request.getParameter("descripcion")+"&ayuda="+datos.getDescripcionAyuda()+
 						"&respuesta="+datos.getRespuestaCorrecta());				
 			}
@@ -119,16 +123,6 @@ public class ServletPregunta extends HttpServlet {
 		}else if(request.getParameter("parar")!=null){
 			response.sendRedirect("MenuPrincipal.jsp");
 		}
-		else if(request.getParameter("modificarPregunta")!=null){
-			DtoPregunta dtoPregunta = new DtoPregunta();
-			
-			dtoPregunta.setTema(request.getParameter("tema"));
-			dtoPregunta.setSubtema(request.getParameter("subtema"));
-			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
-			dtoPregunta.setPregunta(request.getParameter("pregunta"));
-			
-			pregunta.eliminarPregunta(dtoPregunta);
-		}
 		else if(request.getParameter("actualizacionPregunta")!=null){
 			DtoPregunta dtoPregunta = new DtoPregunta();
 			
@@ -136,8 +130,11 @@ public class ServletPregunta extends HttpServlet {
 			dtoPregunta.setSubtema(request.getParameter("subtema"));
 			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
 			dtoPregunta.setPregunta(request.getParameter("pregunta"));
+			dtoPregunta.setDescripcionAyuda(request.getParameter("ayuda"));
+			dtoPregunta.setRespuestaCorrecta(request.getParameter("respuesta"));
 			
-			pregunta.eliminarPregunta(dtoPregunta);
+			pregunta.actualizarPregunta(dtoPregunta,request.getParameter("preguntaOriginal"));
+			response.sendRedirect("Preguntas3.jsp");
 		}
 	}
 }

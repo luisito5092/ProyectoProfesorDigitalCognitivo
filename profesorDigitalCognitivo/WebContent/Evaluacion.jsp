@@ -14,7 +14,7 @@ String getCodigo = request.getParameter("codigoCurso");
 <html>
 <head>
 
-    <title>Preguntas</title>
+    <title>Evaluaciones</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">

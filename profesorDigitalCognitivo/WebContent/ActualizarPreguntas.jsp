@@ -19,13 +19,16 @@
 	<%@ page import = "logicaDeNegocios.dao.DaoPregunta"%>
 	<%@ page import = "logicaDeNegocios.dto.DtoPregunta"%>
 <html>
+
 <head>
-    <title>Actualizar pregunta</title>
+
+    <title>Actulizar Preguntas</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
-    <script src="js/jquery-1.7.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/FF-cash.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+    
 </head>
 
 <body>
@@ -46,19 +49,19 @@
 			<table>
 			<tr>
 				<td class="fuenteLetra5">Pregunta</td>
-				<td><input type="text" value=<%=pregunta %> name="pregunta" /></td>
+				<td><input type="text" value="<%=pregunta %>" name="pregunta" /></td>
 			</tr>
 			<tr>
 				<td class="fuenteLetra5">Descripción Ayuda</td>
-				<td><input type="text" value=<%=ayuda %> name="ayuda" /></td>
+				<td><input type="text" value="<%=ayuda %>" name="ayuda" /></td>
 			</tr>
 			<tr>
 				<td class="fuenteLetra5">Respuesta Correcta</td>
-				<td><input type="text" value=<%=respuesta %> name="respuesta" /></td>
+				<td><input type="text" value="<%=respuesta %>" name="respuesta" /></td>
 			</tr>
 			
 			<tr>
-				<td><input type="hidden" value=<%=pregunta %> name="preguntaOriginal" /></td>
+				<td><input type="hidden" value="<%=pregunta %>" name="preguntaOriginal" /></td>
 				<td><input type="hidden" value="<%=tema %>" name="tema"></td>
 				<td><input type="hidden" value="<%=subtema %>" name="subtema"></td>
 				<td><input type="hidden" value="<%=descripcion %>" name="descripcion"></td>

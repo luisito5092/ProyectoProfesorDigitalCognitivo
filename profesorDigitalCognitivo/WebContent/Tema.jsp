@@ -13,14 +13,13 @@
     <title>Temas</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
-     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
-    
+
 </head>
-</style>
-<body>	
+
+<body>
 	<% DaoTema listaT=new DaoTema();
 	 DtoTema tema=new DtoTema();
 	 %>
