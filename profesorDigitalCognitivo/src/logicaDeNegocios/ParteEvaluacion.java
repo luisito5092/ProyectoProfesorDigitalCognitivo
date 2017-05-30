@@ -5,6 +5,7 @@ import logicaDeNegocios.dao.DaoEvaluacion;
 import logicaDeNegocios.dao.DaoPregunta;
 
 public class ParteEvaluacion {
+	private String lala;
 	private String tipoParte;
 	private int puntajeAsignado;
 	private ArrayList<Pregunta> preguntas;
