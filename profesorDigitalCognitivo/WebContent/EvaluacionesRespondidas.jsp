@@ -64,7 +64,8 @@
 									<td><%=respuesta.getPregunta() %> </td>
 									<td><%=respuesta.getRespuesta() %>
 									<td><%=respuesta.isCorrecto() %></td>
-									<td><button type="submit" name="estadoEvaluacion" value="<%=evaluacion.getNombreEvaluacion()%>">  <span class="glyphicon glyphicon-stats"></span></button></td>
+									
+									<td><button type="submit" name="estadoEvaluacion" value="">  <span class="glyphicon glyphicon-stats"></span></button></td>
         				</tr>
         				<%
         					}
