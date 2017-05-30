@@ -1,4 +1,4 @@
--<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -58,7 +58,7 @@
 									<td><%=estudiante.getNombre() + " " + estudiante.getPrimerApellido() + " " + estudiante.getSegundoApellido() %> </td>
 									<td><%=estudiante.getNumeroCarne() %></td>
 									<td><%=estudiante.getCorreo() %></td>
-									<td><input type="checkbox" NAME="seleccion" VALUE="<%=estudiante.getCorreo()%>" CHECKED/></td>
+									<td><input type="checkbox" NAME="seleccion" VALUE="<%=estudiante.getIdEstudiante()%>" CHECKED/></td>
         				</tr>
         				<%
         					}
@@ -69,7 +69,7 @@
 		      </div>
 		      <input type="hidden" name="CodigoCursoActual" value="<%=session.getAttribute("IdentificadorCurso").toString() %>">
 			  <input type="hidden" name="NombreEvaluacionActual" value="<%=session.getAttribute("Evaluacion").toString() %>" >
-		      <input type="submit" class="btn btn-primary" value="Habilitar" name="Habilitar"/>
+		      <input type="submit" class="btn btn-primary" value="Habilitar Evaluacion" name="Habilitar" >
 		      </form>
 		  </div>
 	</body>

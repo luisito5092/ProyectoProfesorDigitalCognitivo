@@ -19,10 +19,12 @@
 </style>
 <body>
 	<%
-	 String SubtemaActual=session.getAttribute("subtema").toString();
-	 String TemaActual=session.getAttribute("tema").toString();
+	 String subtema=session.getAttribute("subtema").toString();
+	 String tema=session.getAttribute("tema").toString();
 	 String pregunta = request.getParameter("pregunta");
 	 String descripcion = request.getParameter("descripcion");
+	 String ayuda = request.getParameter("ayuda");
+	 String respuesta = request.getParameter("respuesta");
 	 DaoPregunta daoPregunta=new DaoPregunta();
 	 DtoPregunta dtoPregunta=new DtoPregunta();
 	 %>	
@@ -33,28 +35,28 @@
 	 		</div>
 		</div> 
 	
-
 	<div class="contenido">
-		<form action="/ServletPregunta" method="get">
+		<form action="/ServletPregunta" method="post">
 			<p class="fuenteLetra4">Modifique los datos que se desee a continuación.</p>
 			<table>
 			<tr>
 				<td class="fuenteLetra5">Pregunta</td>
-				<td><input type="text" placeholder="   pregunta" name="pregunta" /></td>
+				<td><input type="text" value=<%=pregunta %> name="pregunta" /></td>
 			</tr>
 			<tr>
 				<td class="fuenteLetra5">Descripción Ayuda</td>
-				<td><input type="text" placeholder=" Descripción Ayuda" name="ayuda" /></td>
+				<td><input type="text" value=<%=ayuda %> name="ayuda" /></td>
 			</tr>
 			<tr>
 				<td class="fuenteLetra5">Respuesta Correcta</td>
-				<td><input type="text" placeholder=" Respuesta Correcta" name="respuestaCorrecta" /></td>
+				<td><input type="text" value=<%=respuesta %> name="respuesta" /></td>
 			</tr>
-
+			
 			<tr>
-			<td><input type="hidden" value="<%=session.getAttribute("DescripcionTema").toString() %>" name="DescripcionTema"></td>
-			<td><input type="hidden" value="<%=session.getAttribute("DescripcionSubtema").toString() %>" name="DescripcionSubtema"></td>
-			<td><input type="submit" value="Guardar" name="actualizacionPregunta" /></td>
+				<td><input type="hidden" value="<%=tema %>" name="tema"></td>
+				<td><input type="hidden" value="<%=subtema %>" name="subtema"></td>
+				<td><input type="hidden" value="<%=descripcion %>" name="descripcion"></td>
+				<td><input type="submit" value="Guardar" name="actualizacionPregunta" /></td>
 			</tr>
 		</table>
 	</form>

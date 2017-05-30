@@ -95,7 +95,7 @@ public class DaoEvaluacion {
 				DtoEvaluacion evaluacion=new DtoEvaluacion();
 				evaluacion.setNombreEvaluacion(rs1.getString(1));
 				evaluacion.setPuntajeTotal(rs1.getInt(2));
-				evaluacion.setHoraFecha(rs1.getString(1));
+				evaluacion.setHoraFecha(rs1.getString(3));
 				evaluacion.setMinutosDisponibles(rs1.getInt(4));
 				evaluacion.setHabilitada(rs1.getBoolean(5));
 				evaluacion.setPorcentajeCurso(rs1.getDouble(6));
@@ -119,7 +119,7 @@ public class DaoEvaluacion {
 				DtoEvaluacion evaluacion=new DtoEvaluacion();
 				evaluacion.setNombreEvaluacion(rs1.getString(1));
 				evaluacion.setPuntajeTotal(rs1.getInt(2));
-				evaluacion.setHoraFecha(rs1.getString(1));
+				evaluacion.setHoraFecha(rs1.getString(3));
 				evaluacion.setMinutosDisponibles(rs1.getInt(4));
 				evaluacion.setHabilitada(rs1.getBoolean(5));
 				evaluacion.setPorcentajeCurso(rs1.getDouble(6));
@@ -143,7 +143,7 @@ public class DaoEvaluacion {
 				DtoEvaluacion evaluacion=new DtoEvaluacion();
 				evaluacion.setNombreEvaluacion(rs1.getString(1));
 				evaluacion.setPuntajeTotal(rs1.getInt(2));
-				evaluacion.setHoraFecha(rs1.getString(1));
+				evaluacion.setHoraFecha(rs1.getString(3));
 				evaluacion.setMinutosDisponibles(rs1.getInt(4));
 				evaluacion.setHabilitada(rs1.getBoolean(5));
 				evaluacion.setPorcentajeCurso(rs1.getDouble(6));
@@ -157,42 +157,50 @@ public class DaoEvaluacion {
 		return listaEvaluaciones;
 	}
 	
-	public void habilitarEvaluacion(String codigo, String nombreEvaluacion,String[] correos){
+	public void habilitarEvaluacion(String codigo, String nombreEvaluacion,String[] idEstudiante){
+		DaoEvaluacionAplicada aplicada=new DaoEvaluacionAplicada();
+		//EnviarMail2 email=new EnviarMail2();
 		try {
 			state= ConexionSingleton.conectar().createStatement();
-			EnviarMail2 email=new EnviarMail2();
 			String sql="UPDATE evaluacion SET isHabilitada=1 WHERE curso_codigo='" + codigo + "' AND nombre='" +
 					nombreEvaluacion+"';";
-			
-			for (int i=0;i<correos.length;i++){
-				email.enviarCorreo(correos[i]);
-			}
-			email.enviarCorreo("luisjose1327@hotmail.com");
 			state.executeUpdate(sql);
+			
+			for (int i=0;i<idEstudiante.length;i++){
+				aplicada.crearEvaluacionAplicada(idEstudiante[i],codigo,nombreEvaluacion);
+				//String sql2= "SELECT correoElectronico from estudiante where idEstudiante='"+idEstudiante[i]+"';";
+				//ResultSet rs1=state.executeQuery(sql2);
+				//email.enviarCorreo(rs1.getString(1));
+			}
+			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 	
-	public String consultarInfoEvaluacion(String nombre, String curso){
-		String info="";
+	public ArrayList<DtoEvaluacion> consultarInfoEvaluacion(String nombre, String curso){
+		ArrayList<DtoEvaluacion> listaEvaluaciones= new ArrayList<DtoEvaluacion>();
 		try {
 			state= ConexionSingleton.conectar().createStatement();
 			String sql="SELECT * FROM evaluacion WHERE curso_codigo='" + curso +"' AND nombre='"+nombre+"';";
 			ResultSet rs1=state.executeQuery(sql);
-			info="Nombre de la Evaluación: " + rs1.getString(1) + "\n";
-			info+="Puntaje Total: "+ rs1.getString(2) + "\n";
-			info+="Hora y Fecha: "+ rs1.getString(3) + "\n";
-			info+="Minutos Disponibles: "+ rs1.getString(4) + "\n";
-			info+="Estado: "+ rs1.getString(5) + "\n";
-			info+="Porcentaje del Curso: "+ rs1.getString(6) + "\n";
-			info+="Tipo de Evaluación: "+ rs1.getString(8);
+			while(rs1.next()){
+				DtoEvaluacion evaluacion=new DtoEvaluacion();
+				evaluacion.setNombreEvaluacion(rs1.getString(1));
+				evaluacion.setPuntajeTotal(rs1.getInt(2));
+				evaluacion.setHoraFecha(rs1.getString(3));
+				evaluacion.setMinutosDisponibles(rs1.getInt(4));
+				evaluacion.setHabilitada(rs1.getBoolean(5));
+				evaluacion.setPorcentajeCurso(rs1.getDouble(6));
+				evaluacion.setTipo(rs1.getString(8));	
+				listaEvaluaciones.add(evaluacion);
+			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		return info;
+		return listaEvaluaciones;
 	}
 	
 }

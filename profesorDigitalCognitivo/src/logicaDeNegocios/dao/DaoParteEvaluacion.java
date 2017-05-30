@@ -1,6 +1,7 @@
 package logicaDeNegocios.dao;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import conexionMySql.ConexionSingleton;
 import logicaDeNegocios.dto.DtoParteEvaluacion;
 import logicaDeNegocios.dto.DtoPregunta;
+
 
 
 public class DaoParteEvaluacion {
@@ -60,4 +62,53 @@ public class DaoParteEvaluacion {
 		return listaPreguntas;
 	}
 
+	public ArrayList<DtoParteEvaluacion> MostrarPartesEvaluacionPDF( String curso, String nombreEvaluacion){
+		ArrayList<DtoParteEvaluacion> partesEvaluacion= new ArrayList<DtoParteEvaluacion>();
+		try {
+			state= ConexionSingleton.conectar().createStatement();
+			 		    
+			String sql= "SELECT  tipo,puntajeAsignado from parteEvaluacion "
+					+ " where evaluacion_nombre='"+nombreEvaluacion+"' "
+					+ "and evaluacion_curso_codigo = '"+curso+"';";
+
+			ResultSet rs1=state.executeQuery(sql);
+			while(rs1.next()){
+				DtoParteEvaluacion partes=new DtoParteEvaluacion();
+				partes.setTipoParte(rs1.getString(1));
+				partes.setPuntajeAsignado(rs1.getInt(2));
+				partesEvaluacion.add(partes);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+		return partesEvaluacion;
+	}
+	
+	
+	public ArrayList<DtoPregunta> MostrarPreguntasPartePDF(String curso, String nombreEvaluacion,String tipo){
+		ArrayList<DtoPregunta> PreguntasPartesEvaluacion= new ArrayList<DtoPregunta>();
+		try {
+			state= ConexionSingleton.conectar().createStatement();
+			 		    
+			String sql= "SELECT preguntaSubtema_Pregunta from preguntaEvaluacion "
+					+ " where parteEvaluacion_evaluacion_nombre='"+nombreEvaluacion+"' "
+					+ "and parteEvaluacion_evaluacion_curso_codigo = '"+curso+"' "
+					+ "and preguntaSubtema_descripcion='"+tipo+"';";
+
+			ResultSet rs1=state.executeQuery(sql);
+			while(rs1.next()){
+				DtoPregunta preguntas=new DtoPregunta();
+				preguntas.setPregunta(rs1.getString(1));
+				PreguntasPartesEvaluacion.add(preguntas);
+				
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+		return PreguntasPartesEvaluacion;
+	}
+	
+	
 }

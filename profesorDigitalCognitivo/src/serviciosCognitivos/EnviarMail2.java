@@ -54,17 +54,15 @@ public class EnviarMail2
             message.setSubject("Profesor Cognitivo");
             message.setText(
                 "La aplicación está intentando conectarte contigo. Te felixito");
-            int c = 0;
+            
             // Lo enviamos.
-            while(c<100){
+            
             Transport t = session.getTransport("smtp");
             t.connect("profesorrebeldesswing@gmail.com", "rebeldesdelswing");
             t.sendMessage(message, message.getAllRecipients());
 
             // Cierre.
-            t.close();
-            c++;
-            }
+            t.close();            
         }
         catch (Exception e)
         {

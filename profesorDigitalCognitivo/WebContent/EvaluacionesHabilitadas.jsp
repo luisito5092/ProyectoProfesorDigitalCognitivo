@@ -42,14 +42,16 @@ String getCodigo = request.getParameter("codigoCurso");
             Evaluaciones 
           </h4>
         </div>
+        <form action="/ServletEvaluacion" method="get">
         <table class="table table-fixed" >
         	<thead>
             <tr>
-              <th class="col-xs-2">Nombre</th>
-              <th class="col-xs-2">Puntaje Total</th>
-              <th class="col-xs-3">Fecha y Hora</th>
-              <th class="col-xs-3">Minutos Disponibles</th>
-              <th class="col-xs-3">Porcentaje Curso</th>
+              <th class="col-xs-1">Nombre</th>
+              <th class="col-xs-1">Puntaje Total</th>
+              <th class="col-xs-2">Fecha y Hora</th>
+              <th class="col-xs-2">Minutos Disponibles</th>
+              <th class="col-xs-2">Porcentaje Curso</th>
+              <th class="col-xs-2">Detalle Actual</th>
             </tr>
           </thead>
           <tbody>   
@@ -62,12 +64,17 @@ String getCodigo = request.getParameter("codigoCurso");
 							<td><%=evaluacion.getHoraFecha() %> </td>
 							<td><%=evaluacion.getMinutosDisponibles() %> </td>
 							<td><%=evaluacion.getPorcentajeCurso() %> </td>
+							<td><input type="hidden" value="<%=evaluacion.getNombreEvaluacion() %>" name="nombre">
+							<button type="submit" name="estadoEvaluacion">  <span class="glyphicon glyphicon-stats"></span></button>
+							<button type="submit" name="detalleEvaluacion"> <span class="glyphicon glyphicon-list-alt"></span></button></td>
         				</tr>
         				<%
         					}
         				 %>
         			</tbody>
 		        </table>
+		        
+		        </form>
 		        </div>
 		      </div>
 		  </div>

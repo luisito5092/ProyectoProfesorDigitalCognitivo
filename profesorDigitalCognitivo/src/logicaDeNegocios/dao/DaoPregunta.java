@@ -57,13 +57,8 @@ public class DaoPregunta {
 		try {
 			String sql;
 			state= ConexionSingleton.conectar().createStatement();
-			if(dtoPregunta.getDescripcionPregunta().equals("Selecci�n �nica")){
+			if(dtoPregunta.getDescripcionPregunta().equals("Selección Única")){
 				sql="UPDATE seleccionUnica SET  pregunta="+dtoPregunta.getPregunta()+", descripcion=" +
-						dtoPregunta.getDescripcionPregunta()+", descripcionAyuda="+dtoPregunta.getDescripcionAyuda()+
-						", respuestaCorrecta="+dtoPregunta.getRespuestaCorrecta()+", subtema="+ dtoPregunta.getSubtema()+";";
-			;
-			}else if(dtoPregunta.getDescripcionPregunta().equals("Complete")){
-				sql="UPDATE complete SET  pregunta="+dtoPregunta.getPregunta()+", descripcion=" +
 						dtoPregunta.getDescripcionPregunta()+", descripcionAyuda="+dtoPregunta.getDescripcionAyuda()+
 						", respuestaCorrecta="+dtoPregunta.getRespuestaCorrecta()+", subtema="+ dtoPregunta.getSubtema()+";";
 			}else{
@@ -135,15 +130,15 @@ public class DaoPregunta {
 			return listarPreguntas;
 		}
 	
-		public DtoPregunta getDatosPregunta(DtoPregunta dtoPregunta){
+		public DtoPregunta getDatosPregunta(DtoPregunta dtoPregunta, String tema, String subtema){
 			DtoPregunta dto = new DtoPregunta();
 			try {
-					state= ConexionSingleton.conectar().createStatement();
-					String Sql="SELECT descripcionAyuda, respuestaCorrecta FROM preguntaSubtema"
-							+ " where pregunta='1' and descripcion ='Complete' 
-		and subtema_descripcion='LSP' and subtema_tema_descripcion='SOLID';  ";
-					state.executeUpdate(Sql);
-					;
+				state= ConexionSingleton.conectar().createStatement();
+				String Sql="SELECT descripcionAyuda, respuestaCorrecta FROM preguntaSubtema"+
+						" where pregunta="+dtoPregunta.getPregunta()+" and descripcion ='"+dtoPregunta.getDescripcionPregunta()+"' "
+						+ "	and subtema_descripcion='"+subtema+"' and subtema_tema_descripcion='"+tema+"';  ";
+				state.executeUpdate(Sql);
+				
 					return dto;
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -151,6 +146,7 @@ public class DaoPregunta {
 				}
 			return dto;
 		}
+		
 		
 	public void AgregarRespuestasIncorrectas(ArrayList<String> respuestas,String pregunta,String descripcionSubtema,String descripcionTema){
 		for(int i=0;i<respuestas.size();i++){
