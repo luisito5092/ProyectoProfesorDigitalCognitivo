@@ -24,5 +24,9 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/pop3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/smtp.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/itext-5.0.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jgoodies-common-1.6.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/json-20090211.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

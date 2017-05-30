@@ -72,11 +72,11 @@ public class ServletPregunta extends HttpServlet {
 			DtoPregunta dtoPregunta = new DtoPregunta();
 			dtoPregunta.setTema(request.getParameter("tema"));
 			dtoPregunta.setSubtema(request.getParameter("subtema"));
-			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
-			dtoPregunta.setPregunta(request.getParameter("pregunta"));
-			
-			pregunta.eliminarPregunta(dtoPregunta);
-			response.sendRedirect("Preguntas3.jsp");
+				dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
+				dtoPregunta.setPregunta(request.getParameter("pregunta"));
+				
+				pregunta.eliminarPregunta(dtoPregunta);
+				response.sendRedirect("Preguntas3.jsp");
 			
 		}else if(request.getParameter("modificarPregunta")!=null){
 			pasarPregunta.setDescripcionPregunta(request.getParameter("descripcion"));

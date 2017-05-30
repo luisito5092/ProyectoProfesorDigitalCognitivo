@@ -64,9 +64,7 @@ String getCodigo = request.getParameter("codigoCurso");
 							<td><%=evaluacion.getHoraFecha() %> </td>
 							<td><%=evaluacion.getMinutosDisponibles() %> </td>
 							<td><%=evaluacion.getPorcentajeCurso() %> </td>
-							<td><input type="hidden" value="<%=evaluacion.getNombreEvaluacion() %>" name="nombre">
-							<button type="submit" name="estadoEvaluacion">  <span class="glyphicon glyphicon-stats"></span></button>
-							<button type="submit" name="detalleEvaluacion"> <span class="glyphicon glyphicon-list-alt"></span></button></td>
+							<td><button type="submit" name="estadoEvaluacion" value="<%=evaluacion.getNombreEvaluacion()%>">  <span class="glyphicon glyphicon-stats"></span></button></td>
         				</tr>
         				<%
         					}
