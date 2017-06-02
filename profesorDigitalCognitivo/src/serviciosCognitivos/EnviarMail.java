@@ -7,24 +7,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-/*
- 
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.MessagingException;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.AddressException;
 
 
-/**
- * Ejemplo de envio de correo simple con JavaMail
- *
- * @author Chuidiang
- *
-  */
 public class EnviarMail
 {
     /**
@@ -43,21 +30,19 @@ public class EnviarMail
             props.setProperty("mail.smtp.auth", "true");
 
             // Preparamos la sesion
-            Session session = Session.getDefaultInstance(props);
+            Session session = Session.getDefaultInstance(props,null);
+            session.setDebug(true);
 
             // Construimos el mensaje
             MimeMessage message = new MimeMessage(session);
             
 //          Aqui va el destinatario
             message.setFrom(new InternetAddress("profesorrebeldesswing@gmail.com"));
-            message.addRecipient(
-                Message.RecipientType.TO,
-                new InternetAddress(correo));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
             
             message.setSubject("Profesor Cognitivo");
-            message.setText(
-                "La aplicación está intentando conectarte contigo. Te felixito");
-            int c = 0;
+            message.setText("La aplicación está intentando conectarte contigo. Te felixito");
+
             // Lo enviamos.
            
             Transport t = session.getTransport("smtp");
@@ -65,9 +50,7 @@ public class EnviarMail
             t.sendMessage(message, message.getAllRecipients());
 
             // Cierre.
-            t.close();
-            c++;
-            
+            t.close();            
         }
         catch (Exception e)
         {

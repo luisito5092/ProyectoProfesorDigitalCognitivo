@@ -72,7 +72,7 @@ public class Curso {
 		this.profesor = profesor;
 	}
 
-	//************************************** HOLISWIS AMIWIS*****************************************
+	//************************************** OTROS METODOS *****************************************
 	public void eliminarCurso(String idCurso){
 		DaoCurso borrar=new DaoCurso();
 		borrar.eliminarCurso(idCurso);
