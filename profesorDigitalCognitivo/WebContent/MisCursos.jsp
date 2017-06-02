@@ -36,6 +36,7 @@
       
       
       <div class="contenido" ></hr>
+      <button type="submit" class="btn btn-primary" name=VentanaBitacoras>Bitácoras</button>
 	<div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">

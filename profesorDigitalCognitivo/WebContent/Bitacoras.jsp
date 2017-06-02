@@ -4,11 +4,11 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-	<%@ page import = "logicaDeNegocios.dao.DaoRespuestaDada"%>
-	<%@ page import = "logicaDeNegocios.dto.DtoRespuestaDada"%>
+	<%@ page import = "logicaDeNegocios.dao.DaoEvaluacionAplicada"%>
+	<%@ page import = "logicaDeNegocios.dto.DtoEvaluacionAplicada"%>
 <html>
 <head>
-    <title>Detalle de la Evaluación</title>
+    <title>Bitacoras</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
      <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
@@ -19,12 +19,12 @@
 </head>
 </head>
 <body>
-	<% DaoRespuestaDada listaRespuestas=new DaoRespuestaDada();
-	 DtoRespuestaDada respuesta=new DtoRespuestaDada(); %>
+	<% DaoEvaluacionAplicada listaAplicada=new DaoEvaluacionAplicada();
+	 DtoEvaluacionAplicada estado=new DtoEvaluacionAplicada(); %>
 	<header>
 		<div="main">
 			<div class="wrap">
-		       		<h2 class=fuenteletra8 >Respuestas de la <a class="fuenteLetra3">Evaluación</a></h2>
+		       		<h2 class=fuenteletra8 >Bitacora del <a class="fuenteLetra3">Curso</a></h2>
 	 		</div>
 		</div> 
      <div class="contenido" style="margin:45px auto"></hr>
@@ -34,7 +34,7 @@
       
         <div class="panel-heading">
           <h4>
-            Respuestas de la Evaluación Realizada:
+            Bitácoras:
           </h4>
         </div>
         
@@ -42,12 +42,10 @@
         	<thead>
             <tr>
 
-              <th class="col-xs-2">Tipo Pregunta</th>}
-              <th class="col-xs-2">Pregunta</th>
-              <th class="col-xs-2">Respuesta</th>
-              <th class="col-xs-3">Correcto</th>
-              <th class="col-xs-3">Generar PDF</th>
-            
+              <th class="col-xs-2">Usuario</th>
+              <th class="col-xs-2">Fecha</th>
+              <th class="col-xs-3">Descripción</th>
+              <th class="col-xs-3">Otros Formatos</th>
             </tr>
           </thead>
           <tbody>
@@ -55,17 +53,18 @@
 				<% 
 				String curso=session.getAttribute("IdentificadorCurso").toString();
 				String evaluacion=session.getAttribute("NombreEvaluacion").toString();
-				String estudiante=session.getAttribute("IdEstudiante").toString();
-				int condicion=listaRespuestas.listarRespuestasDadas(curso, evaluacion, estudiante).size();
+				int condicion=listaAplicada.listarEstadoEvaluaciones(curso, evaluacion).size();
 					for(int i=0; i<condicion;i++){
-					respuesta=listaRespuestas.listarRespuestasDadas(curso, evaluacion, estudiante).get(i);
+					estado=listaAplicada.listarEstadoEvaluaciones(curso, evaluacion).get(i);
 				%>
-									<td><%=respuesta.getTipoPregunta() %> </td>
-									<td><%=respuesta.getPregunta() %> </td>
-									<td><%=respuesta.getRespuesta() %>
-									<td><%=respuesta.isCorrecto() %></td>
-									
-									<td><button type="submit" name="estadoEvaluacion" value="">  <span class="glyphicon glyphicon-stats"></span></button></td>
+									<td><%=estado.getIdEstudiante() %> </td>
+									<td><%=estado.getNombreEstudiante()%> </td>
+									<td><%=estado.getEstado() %>
+									<input type="hidden" name="Estudiante" value="<%=estado.getIdEstudiante() %>">
+									<input type="hidden" name="CodigoCursoActual" value="<%=session.getAttribute("IdentificadorCurso").toString()%>">
+									<input type="hidden" name="NombreEvaluacion" value="<%=session.getAttribute("NombreEvaluacion").toString() %>"></td>
+									<td><button type="submit" name="detalleEvaluacion"> <span class="glyphicon glyphicon-list-alt"></span>XML</button>
+									<button type="submit" name="detalleEvaluacion"> <span class="glyphicon glyphicon-list-alt"></span>CSV</button></td>
         				</tr>
         				<%
         					}
