@@ -51,9 +51,13 @@ public class ServletCurso extends HttpServlet {
     	}else if(request.getParameter("actualizar")!=null){
     		cursoFabricado.actualizarCurso(curso, request.getParameter("codigoOriginal"));
     		response.sendRedirect("../verCurso.jsp?codigo="+request.getParameter("codigoOriginal")+"&descripcion="+
-    							request.getParameter("descripcion"));   	
+    							request.getParameter("descripcion"));
+    		
     	}else if(request.getParameter("listaDeTemas")!=null){
     		response.sendRedirect("EstudiantesCurso.jsp");
+    		
+    	}else if(request.getParameter("VentanaBitacoras")!=null){
+    		response.sendRedirect("Bitacora.jsp");
     	}
     }
 
