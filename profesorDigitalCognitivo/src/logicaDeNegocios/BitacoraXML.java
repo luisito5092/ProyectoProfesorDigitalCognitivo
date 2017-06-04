@@ -1,5 +1,7 @@
 package logicaDeNegocios;
 
+
+
 import logicaDeNegocios.dto.DtoBitacora;
 
 public class BitacoraXML extends Bitacora {
@@ -10,4 +12,5 @@ public class BitacoraXML extends Bitacora {
 				super(pDto);
 				setTipo("CSV");
 			}
+		
 }

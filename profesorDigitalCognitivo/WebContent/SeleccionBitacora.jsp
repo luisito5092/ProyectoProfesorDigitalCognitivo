@@ -24,7 +24,7 @@
 	
 
 	<div class="contenido">
-			<p class="fuenteLetra4">Seleccione lso parámetros con los que desea desplegar las bitácoras:</p>
+			<p class="fuenteLetra4">Seleccione los parámetros con los que desea desplegar las bitácoras:</p>
 			<form action="/ServletTema" method="get">
 			<table>
 
@@ -35,17 +35,17 @@
 				<td><input type="date" name="fecha" /></td>
 				<tr>
 					<td class="fuenteLetra5">Tipo de Bitácora</td>
-					<td><select class="selectpicker" name="comboboxTema" style="width: 153px; ">
+					<td><select class="selectpicker" name="comboboxBitacora" style="width: 153px; ">
 					<option value="CSV">CSV</option>
 					<option value="XML">XML</option>
 					<option value="Posicional">Posicional</option>
+					<option value="Posicional">Vista Web</option>
 					</select></td>
 				</tr>
 				
 				<tr>
 				<td>
-					<input type="hidden" name="CursoActualTema" value="<%=session.getAttribute("IdentificadorCurso").toString() %>" >
-					<input type="submit" value="Consultar" name="registrarTemaCurso">
+					<input type="submit" value="Consultar" name="ConsultarBitacoras">
 				</td></tr>
 			</table>
 		</form>

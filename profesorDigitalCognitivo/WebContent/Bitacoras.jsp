@@ -43,9 +43,9 @@
             <tr>
 
               <th class="col-xs-2">Usuario</th>
-              <th class="col-xs-2">Fecha</th>
+              <th class="col-xs-2">Hora y Fecha</th>
               <th class="col-xs-3">Descripción</th>
-              <th class="col-xs-3">Otros Formatos</th>
+              <th class="col-xs-3">Código del Curso</th>
             </tr>
           </thead>
           <tbody>
@@ -63,8 +63,7 @@
 									<input type="hidden" name="Estudiante" value="<%=estado.getIdEstudiante() %>">
 									<input type="hidden" name="CodigoCursoActual" value="<%=session.getAttribute("IdentificadorCurso").toString()%>">
 									<input type="hidden" name="NombreEvaluacion" value="<%=session.getAttribute("NombreEvaluacion").toString() %>"></td>
-									<td><button type="submit" name="detalleEvaluacion"> <span class="glyphicon glyphicon-list-alt"></span>XML</button>
-									<button type="submit" name="detalleEvaluacion"> <span class="glyphicon glyphicon-list-alt"></span>CSV</button></td>
+									<td><%=estado.getEstado() %>
         				</tr>
         				<%
         					}
