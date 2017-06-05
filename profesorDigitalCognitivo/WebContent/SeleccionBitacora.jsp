@@ -25,14 +25,14 @@
 
 	<div class="contenido">
 			<p class="fuenteLetra4">Seleccione los parámetros con los que desea desplegar las bitácoras:</p>
-			<form action="/ServletTema" method="get">
+			<form action="/ServletCurso" method="get">
 			<table>
 
 				<tr>
 				<td class="fuenteLetra5">Fecha de Inicio</td>
-				<td><input type="date" name="fecha" /></td>
+				<td><input type="date" name="fechaInicio" /></td>
 				<td class="fuenteLetra5">Fecha Final</td>
-				<td><input type="date" name="fecha" /></td>
+				<td><input type="date" name="fechaFinal" /></td>
 				<tr>
 					<td class="fuenteLetra5">Tipo de Bitácora</td>
 					<td><select class="selectpicker" name="comboboxBitacora" style="width: 153px; ">

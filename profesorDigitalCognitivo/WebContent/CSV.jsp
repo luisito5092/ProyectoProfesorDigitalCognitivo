@@ -49,11 +49,10 @@
           <tbody>
           	<tr>
 				<% 
-				String profesor=session.getAttribute("IdentificadorCurso").toString();
-					for(int i=0; i<9;i++){
-					
+					for(int i=0; i<listaBitacora.consultarBitacoras(" ", " ",session.getAttribute("logueado").toString()).size();i++){
+						bitacora=listaBitacora.consultarBitacoras(" ", " ",session.getAttribute("logueado").toString()).get(i);	
 				%>
-							<td>"<%=bitacora.getCorreoProfesor()%>", "<%=bitacora.getDescripcion()%>", "<%=bitacora.getFecha()%>"</td>
+							<td>"<%=bitacora.getCorreoProfesor()%>", "<%=bitacora.getFecha()%>","<%=bitacora.getDescripcion()%>", "<%=bitacora.getCodigoCurso()%>"</td>
         				</tr>
         				<%
         					}

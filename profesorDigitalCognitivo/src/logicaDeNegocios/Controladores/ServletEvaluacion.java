@@ -28,9 +28,11 @@ import com.itextpdf.text.pdf.codec.Base64.OutputStream;
 
 import logicaDeNegocios.Curso;
 import logicaDeNegocios.Evaluacion;
+import logicaDeNegocios.dao.DaoBitacora;
 import logicaDeNegocios.dao.DaoEvaluacion;
 import logicaDeNegocios.dao.DaoEvaluacionAplicada;
 import logicaDeNegocios.dao.DaoParteEvaluacion;
+import logicaDeNegocios.dto.DtoBitacora;
 import logicaDeNegocios.dto.DtoCurso;
 import logicaDeNegocios.dto.DtoEvaluacion;
 import logicaDeNegocios.dto.DtoEvaluacionAplicada;
@@ -61,6 +63,9 @@ public class ServletEvaluacion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DaoBitacora cambiosHechos=new DaoBitacora();
+		DtoBitacora dtoB=new DtoBitacora();
+		
 		if(request.getParameter("evaluaciones")!=null){
 			response.sendRedirect("Evaluacion.jsp?codigoCurso="+request.getParameter("codigoCurso"));
 		}
@@ -85,7 +90,10 @@ public class ServletEvaluacion extends HttpServlet {
 			evaluacion.setNombreEvaluacion(request.getParameter("nombre"));
 			evaluacion.setPorcentajeCurso(porcentajeCurso);
 			evaluacion.setPuntajeTotal(puntaje);
-			
+			dtoB.setCodigoCurso(request.getParameter("codigoCurso"));
+			dtoB.setCorreoProfesor(request.getParameter("correoProfesor"));
+			dtoB.setDescripcion("Se ha agregado la evaluación "+request.getParameter("nombre")+" al curso "+request.getParameter("codigoCurso"));
+			cambiosHechos.registrarBitacora(dtoB);
 			if(request.getParameter("tipo").equals("sumativa")){
 				fabrica = new FabricaEvaluacionSumativa();
 			}else{

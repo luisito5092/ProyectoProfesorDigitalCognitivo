@@ -4,28 +4,18 @@ import java.util.ArrayList;
 
 import logicaDeNegocios.dto.DtoBitacora;
 
-public class Bitacora {
-	private String correoProfesor;
-	private String descripcion;
-	private String fecha;
-	private Curso curso;
-	private String tipo;
+public abstract class Bitacora {
+	protected String correoProfesor;
+	protected String descripcion;
+	protected String fecha;
+	protected Curso curso;
+	protected String tipo;
 	
 	//************************************** CONSTRUCTOR *****************************************
-		public Bitacora(DtoBitacora dto){
-			setCorreoProfesor(dto.getCorreoProfesor());
-			setDescripcion(dto.getDescripcion());
-			setFecha(dto.getFecha());
-			setCurso(dto.getCurso());
+		public Bitacora(){
 		}
 		
 		//************************************** GETTERS & SETTERS *****************************************
-	public String getCorreoProfesor() {
-		return correoProfesor;
-	}
-	public void setCorreoProfesor(String correoProfesor) {
-		this.correoProfesor = correoProfesor;
-	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -55,9 +45,17 @@ public class Bitacora {
 		this.tipo = tipo;
 	}
 	
+	public String getCorreoProfesor() {
+		return correoProfesor;
+	}
+
+	public void setCorreoProfesor(String correoProfesor) {
+		this.correoProfesor = correoProfesor;
+	}
 	
 	
 	//************************************** OTROS METODOS *****************************************
+
 	
-	
+	public abstract String actualizarBitacora();
 }

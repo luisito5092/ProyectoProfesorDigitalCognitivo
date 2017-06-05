@@ -61,6 +61,7 @@
 			</tr>
 			</table>
 			<input type="hidden" value="<%=getCurso%>" name="codigoCurso"/>
+			<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor"/>
 			<input type="submit" value="Continuar" name="registrar"/>
 		</form>
 	</div>

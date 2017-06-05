@@ -4,6 +4,7 @@ import logicaDeNegocios.Curso;
 
 public class DtoBitacora {
 	private String correoProfesor;
+	private String codigoCurso;
 	private String descripcion;
 	private String fecha;
 	private Curso curso;
@@ -38,6 +39,12 @@ public class DtoBitacora {
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	public String getCodigoCurso() {
+		return codigoCurso;
+	}
+	public void setCodigoCurso(String codigoCurso) {
+		this.codigoCurso = codigoCurso;
 	}
 	
 	
