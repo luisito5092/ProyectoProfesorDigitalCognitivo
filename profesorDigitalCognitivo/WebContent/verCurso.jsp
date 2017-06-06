@@ -47,6 +47,7 @@ String getDescripcion = request.getParameter("descripcion"); %>
 			<tr>
 				<td class="fuenteLetra5" >Descripción</td>
 				<input type="hidden" value="<%=getCodigo %>" name="codigoOriginal">
+				<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
 				<td><input type="text" placeholder="   descripción" value=<%=getDescripcion%> name="descripcion" /></td></tr><tr>
 				<td><input type="submit" name="actualizar" value="Guardar Cambios"></td>
 			</tr>

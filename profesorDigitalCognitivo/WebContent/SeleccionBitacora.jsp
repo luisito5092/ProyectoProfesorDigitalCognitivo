@@ -39,13 +39,13 @@
 					<option value="CSV">CSV</option>
 					<option value="XML">XML</option>
 					<option value="Posicional">Posicional</option>
-					<option value="Posicional">Vista Web</option>
 					</select></td>
 				</tr>
 				
 				<tr>
 				<td>
 					<input type="submit" value="Consultar" name="ConsultarBitacoras">
+					<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
 				</td></tr>
 			</table>
 		</form>

@@ -28,8 +28,12 @@
 	 		</div>
 		</div> 
      <div class="contenido" style="margin:45px auto"></hr>
-     <form action="/ServletEvaluacion" method="get">
-    
+    <form action="/ServletCurso" method="get">
+    	<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
+	    <input type="hidden" value="<%=session.getAttribute("Fecha11").toString()%>" name="fecha1">
+	    <input type="hidden" value="<%=session.getAttribute("Fecha22").toString()%>" name="fecha2">
+      <button type="submit" class="btn btn-primary" name=DescargarCSV >Descargar Archivo</button>
+      </form>
 	<div class="row">
       <div class="panel panel-default">
       

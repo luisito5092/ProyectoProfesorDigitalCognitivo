@@ -18,7 +18,7 @@ import logicaDeNegocios.dto.DtoBitacora;
 
 public class TXT {
 	private String ruta;
-	private File TXT;
+	private static File TXT;
 	
 	public TXT(String pRuta){
 		setRuta(pRuta);

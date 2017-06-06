@@ -69,6 +69,7 @@
 		      </div>
 		      <input type="hidden" name="CodigoCursoActual" value="<%=session.getAttribute("IdentificadorCurso").toString() %>">
 			  <input type="hidden" name="NombreEvaluacionActual" value="<%=session.getAttribute("Evaluacion").toString() %>" >
+			  <input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
 		      <input type="submit" class="btn btn-primary" value="Habilitar Evaluacion" name="Habilitar" >
 		      </form>
 		  </div>

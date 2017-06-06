@@ -60,6 +60,7 @@
 										<button type="submit" name="editarTema"> <span class="glyphicon glyphicon-pencil"></span></button>
 										<button type="submit" name="botonEliminarTema"> <span class="glyphicon glyphicon-trash"></span></button>
 										<input type="hidden" value=<%=tema.getDescripcion() %> name="Descripcion">
+										<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
 										<input type="hidden" value=<%=session.getAttribute("IdentificadorCurso")%> name="codigoCurso">
 										<button type="submit" name="agregarSubtema"> <span class="glyphicon glyphicon-plus"></span></button>
 									</form>

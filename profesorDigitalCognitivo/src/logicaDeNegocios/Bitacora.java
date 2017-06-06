@@ -1,61 +1,39 @@
 package logicaDeNegocios;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import logicaDeNegocios.dto.DtoBitacora;
 
 public abstract class Bitacora {
-	protected String correoProfesor;
-	protected String descripcion;
-	protected String fecha;
-	protected Curso curso;
-	protected String tipo;
+	protected String ruta;
+	protected File archivo;
 	
 	//************************************** CONSTRUCTOR *****************************************
-		public Bitacora(){
+		public Bitacora(String pRuta){
+			setRuta(pRuta);
+			setArchivo();
 		}
 		
 		//************************************** GETTERS & SETTERS *****************************************
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	public String getFecha() {
-		return fecha;
-	}
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
+		public String getRuta() {
+			return ruta;
+		}
 
-	public Curso getCurso() {
-		return curso;
-	}
+		public void setRuta(String pDireccion) {
+			this.ruta = pDireccion;
+		}
 
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
+		public File getArchivo() {
+			return archivo;
+		}
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	
-	public String getCorreoProfesor() {
-		return correoProfesor;
-	}
-
-	public void setCorreoProfesor(String correoProfesor) {
-		this.correoProfesor = correoProfesor;
-	}
+		public void setArchivo() {
+			this.archivo = new File(getRuta());
+		}
 	
 	
 	//************************************** OTROS METODOS *****************************************
-
-	
-	public abstract String actualizarBitacora();
+	public abstract void realizarRegistro(String email,String descripcion,String codigo);
+	public abstract ArrayList<DtoBitacora> leerRegistro();
 }
