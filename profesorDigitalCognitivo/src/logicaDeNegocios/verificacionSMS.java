@@ -7,8 +7,8 @@ public class verificacionSMS {
 	public void enviarSms(String numero, String codigo) {
 		try {
 			// Construct data
-			String usuario = "username=" + "jose.andresbg@gmail.com";
-			String hash = "&hash=" + "0074a3b905cac06f8443e8695229d5cbb1744b4e24b55824d744d1bed544a7b7";
+			String usuario = "username=" + "profesorrebeldesswing@gmail.com";
+			String hash = "&hash=" + "0c608c3ddff5d9b4f34ad5df027975d22828b9b39dc398abb7dc7c4269147308";
 			String mensaje = "&message=" + codigo;
 			String emisor = "&sender=" + "Profesor C.";
 			String telefono = "&numbers=" + "+506"+numero;

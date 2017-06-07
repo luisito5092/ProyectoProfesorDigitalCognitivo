@@ -65,7 +65,6 @@ public class ServletLogin extends HttpServlet {
 		HttpSession sesion = request.getSession(true);
 		
 		if(request.getParameter("enviarSMS")!=null){
-			
 			DtoProfesor profe=new DtoProfesor();
 			profe.setCorreoElectronico(request.getParameter("usuario"));
 			profe.setContrasenia(request.getParameter("contrasenia"));
@@ -78,7 +77,7 @@ public class ServletLogin extends HttpServlet {
 				 String codigo = sms.generarPIN();
 				 String telefono = consulta.getTelefono(request.getParameter("usuario").toString());
 				 
-				 //**********************sms.enviarSms(telefono, codigo);**************************
+//				 sms.enviarSms(telefono, codigo);
 				 
 				 sesion.setAttribute("telefono",telefono);
 				 sesion.setAttribute("codigoVerificacion",codigo); 
@@ -86,28 +85,24 @@ public class ServletLogin extends HttpServlet {
 				 response.sendRedirect("VerificacionTelefonica.jsp");				 
 			 }else{    
 				request.setAttribute("errorMessage","Usuario o contrasena invalida");
-				 //request.getRequestDispatcher("LogIn.jsp").forward(request, response);
-			 	response.sendRedirect("LogIn.jsp");
+			 	response.sendRedirect("index.jsp"); 
 			 }	
 		}else if(request.getParameter("verificacionSMS")!=null){
-			
 			String codigoVerificacion = sesion.getAttribute("codigoVerificacion").toString();
 			int contador =Integer.parseInt(sesion.getAttribute("contador").toString()); 
 			String codigoIngreso = request.getParameter("codigoVerificacion");			
-			if(codigoIngreso.equalsIgnoreCase(codigoVerificacion)){
-					response.sendRedirect("MenuPrincipal.jsp");
-			}
+			if(codigoIngreso.equalsIgnoreCase(codigoVerificacion))
+				response.sendRedirect("MenuPrincipal.jsp");
 			contador --;
-			sesion.setAttribute("contador", contador);			
+			sesion.setAttribute("contador", Integer.toString(contador));			
 			if(contador>0)
 				response.sendRedirect("VerificacionTelefonica.jsp");
-			}else{
-				sesion.setAttribute("logueado","incorrecto");
-				sesion.setAttribute("contrasenia","incorrecto");
+			else{
+				sesion.removeAttribute("logueado");
+				sesion.removeAttribute("contrasenia");
+				sesion.removeAttribute("codigoVerificacion");
 				response.sendRedirect("index.jsp");
-			}						
-				
-		}	
-
+			}
+		}
 	}
-
+}

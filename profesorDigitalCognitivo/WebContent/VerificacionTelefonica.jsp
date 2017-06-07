@@ -25,16 +25,18 @@ String codigoVerificacion = session.getAttribute("codigoVerificacion").toString(
 		<form action="/ServletLogin" method="post">
 			<center><table>
 				<tr>
-					<td><input type="text" name="codigoVerificacion"  placeholder="    Código de Verificación">
-				</td>
+					<td><input type="text" name="codigoVerificacion"  placeholder="    Código de Verificación"></td>
+				</tr>
 				<tr>
 					<td>						
 						<input type="submit" value="   Iniciar   " name="verificacionSMS">
 					</td>
 				</tr>
-				<tr>
-					<p>*Oportunidades restantes:<%=session.getAttribute("contador")%>*</p>
+				<tr>					
+					<td><p>*Oportunidades restantes: <%=session.getAttribute("contador")%></p></td>
 				</tr>
+					
+				
 			</table></center>
 		</form>
 	</div>
