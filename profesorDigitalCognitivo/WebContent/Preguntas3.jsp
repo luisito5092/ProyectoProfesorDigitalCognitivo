@@ -37,7 +37,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>
-            Preguntas 
+            Preguntas <%=SubtemaActual %> <%=TemaActual %>
           </h4>
         </div>
         <table class="table table-fixed" >
@@ -55,22 +55,19 @@
 				<% for(int i=0; i<listaP.listarPreguntaSubtema(SubtemaActual,TemaActual).size();i++){
 					pregunta=listaP.listarPreguntaSubtema(SubtemaActual,TemaActual).get(i);
 				%>
-									<td><%=pregunta.getPregunta() %> </td>
-									<td><%=pregunta.getDescripcionPregunta() %> </td>
-									<td><%=pregunta.getDescripcionAyuda() %> </td>
-									<td>  
-										<form method="GET" action="/ServletPregunta">
-										
-											<button type="submit" name="modificarPregunta"> <span class="glyphicon glyphicon-pencil"></span></button>
-											<button type="submit" name="eliminarPregunta"> <span class="glyphicon glyphicon-trash"></span></button>
-											<input type="hidden" value="<%=pregunta.getPregunta()  %>" name="pregunta">
-											<input type="hidden" value="<%=SubtemaActual  %>" name="subtema">
-											<input type="hidden" value="<%=TemaActual  %>" name="tema">
-											<input type="hidden" value="<%=pregunta.getDescripcionAyuda()  %>" name="ayuda">
-											<input type="hidden" value="<%=pregunta.getDescripcionPregunta()  %>" name="descripcion">
-										</form>
-									</td>
-        				</tr>
+					<td><%=pregunta.getPregunta() %> </td>
+					<td><%=pregunta.getDescripcionPregunta() %> </td>
+					<td><%=pregunta.getDescripcionAyuda() %> </td>
+					<td>  
+						<form method="POST" action="/ServletPregunta">
+							<input type="hidden" value="<%=pregunta.getPregunta()  %>" name="pregunta">
+							<input type="hidden" value="<%=pregunta.getDescripcionAyuda()  %>" name="ayuda">
+							<input type="hidden" value="<%=pregunta.getDescripcionPregunta()  %>" name="descripcion">
+							<button type="submit" name="eliminarPregunta"> <span class="glyphicon glyphicon-trash"></span></button>
+							<button type="submit" name="modificarPregunta"> <span class="glyphicon glyphicon-pencil"></span></button>										
+						</form>
+					</td>
+        	</tr>
         				<%
         					}
         				 %>

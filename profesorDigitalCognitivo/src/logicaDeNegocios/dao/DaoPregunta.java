@@ -114,7 +114,7 @@ public class DaoPregunta {
 			ArrayList<DtoPregunta> listarPreguntas= new ArrayList<DtoPregunta>();
 			try {
 				state= ConexionSingleton.conectar().createStatement();
-				String sql="SELECT * FROM preguntaSubtema where subtema_descripcion='"+SubtemaDescripcion+"' AND "
+				String sql="SELECT * FROM preguntaSubtema where 	subtema_descripcion='"+SubtemaDescripcion+"' AND "
 						+ "subtema_tema_descripcion='"+TemaDescripcion+"';";
 				
 				ResultSet rs1=state.executeQuery(sql);
@@ -125,7 +125,6 @@ public class DaoPregunta {
 					pregunta.setDescripcionPregunta(rs1.getString(2));
 					pregunta.setDescripcionAyuda(rs1.getNString(3));
 					pregunta.setRespuestaCorrecta(rs1.getString(4));
-					pregunta.setSubtema(rs1.getString(5));
 					listarPreguntas.add(pregunta);
 				}
 				
@@ -137,23 +136,25 @@ public class DaoPregunta {
 		}
 	
 		public DtoPregunta getDatosPregunta(DtoPregunta dtoPregunta){
+			DtoPregunta pregunta = new DtoPregunta();
 			try {
 				state= ConexionSingleton.conectar().createStatement();
 				String Sql="SELECT descripcionAyuda, respuestaCorrecta FROM preguntaSubtema"+
-					" where pregunta='"+dtoPregunta.getPregunta()+"' and descripcion ='"+dtoPregunta.getDescripcionPregunta()+"'"
-				+ 	" and subtema_descripcion='"+dtoPregunta.getSubtema()+"' and subtema_tema_descripcion='"+dtoPregunta.getTema()+"';";
+					" where pregunta='"+dtoPregunta.getPregunta()+"' and descripcion ='"+dtoPregunta.getDescripcionPregunta()+"'"+
+				 	" and subtema_descripcion='"+dtoPregunta.getSubtema()+"' and subtema_tema_descripcion='"+dtoPregunta.getTema()+"';";
 				
 				ResultSet rs1 = state.executeQuery(Sql);
+				
 				while(rs1.next()){
-					dtoPregunta.setDescripcionAyuda(rs1.getString(1));
-					dtoPregunta.setRespuestaCorrecta(rs1.getString(2));;
+					pregunta.setDescripcionAyuda(rs1.getString(1));
+					pregunta.setRespuestaCorrecta(rs1.getString(2));;
 				}
 				
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			return dtoPregunta;
+			return pregunta;
 		}
 		
 	public void AgregarRespuestasIncorrectas(ArrayList<String> respuestas,String pregunta,String descripcionSubtema,String descripcionTema){

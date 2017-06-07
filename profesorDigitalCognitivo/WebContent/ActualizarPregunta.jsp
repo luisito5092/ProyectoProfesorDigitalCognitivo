@@ -1,11 +1,11 @@
 <%
-	 String subtema=session.getAttribute("subtema").toString();
-	 String tema=session.getAttribute("tema").toString();
+	 String subtema = session.getAttribute("subtema").toString();
+	 String tema = session.getAttribute("tema").toString();
 	 
-	 String pregunta = request.getParameter("pregunta");
-	 String descripcion = request.getParameter("descripcion");
-	 String ayuda = request.getParameter("ayuda");
-	 String respuesta = request.getParameter("respuesta");
+	 String pregunta = session.getAttribute("pregunta").toString();
+	 String descripcion = session.getAttribute("descripcion").toString();
+	 String ayuda = session.getAttribute("ayuda").toString();
+	 String respuesta = session.getAttribute("respuesta").toString();
 %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -51,12 +51,12 @@
 			<tr>
 				<td class="fuenteLetra5">Descripción Ayuda</td>
 				<td><input type="text" value=<%=ayuda %> name="ayuda" /></td>
-			</tr>
+			</tr> 
 			<tr>
 				<td class="fuenteLetra5">Respuesta Correcta</td>
 				<td><input type="text" value=<%=respuesta %> name="respuesta" /></td>
 			</tr>
-			
+			  
 			<tr>
 				<td><input type="hidden" value=<%=pregunta %> name="preguntaOriginal" /></td>
 				<td><input type="hidden" value="<%=tema %>" name="tema"></td>

@@ -24,8 +24,7 @@ String getDescripcion = request.getParameter("Descripcion");
 			<div class="wrap">
 		       		<h2>Actualizar <a class="fuenteLetra3">Tema %></a></h2>
 	 		</div>
-		</div> 
-	
+		</div>
 	<div class="contenido">
 			<p class="fuenteLetra4">Actualice los datos que desee a continuación.</p>
 		<form action="/ServletTema" method="post">

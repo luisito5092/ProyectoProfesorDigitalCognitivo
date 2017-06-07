@@ -36,6 +36,7 @@ public class ServletPregunta extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DtoPregunta pasarPregunta=new DtoPregunta();
 		DaoPregunta pregunta=new DaoPregunta();
+		HttpSession session = request.getSession(true);
 		
 		if(request.getParameter("guardarPregunta")!=null){
 			pasarPregunta.setPregunta(request.getParameter("pregunta"));
@@ -47,7 +48,7 @@ public class ServletPregunta extends HttpServlet {
 				pregunta.crearPregunta(pasarPregunta.getPregunta(),pasarPregunta.getDescripcionPregunta(),
 						pasarPregunta.getDescripcionAyuda(), pasarPregunta.getRespuestaCorrecta(),
 						request.getParameter("DescripcionSubtema"), request.getParameter("DescripcionTema"));
-				HttpSession session = request.getSession(true);
+				
 				session.setAttribute("Pregunta",request.getParameter("pregunta"));
 				response.sendRedirect("RespuestasIncorrectas.jsp");
 
@@ -78,22 +79,6 @@ public class ServletPregunta extends HttpServlet {
 				pregunta.eliminarPregunta(dtoPregunta);
 				response.sendRedirect("Preguntas3.jsp");
 			
-		}else if(request.getParameter("modificarPregunta")!=null){
-			pasarPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
-			pasarPregunta.setPregunta(request.getParameter("pregunta"));
-			pasarPregunta.setTema(request.getParameter("tema"));
-			pasarPregunta.setSubtema(request.getParameter("subtema"));
-			DtoPregunta datos = pregunta.getDatosPregunta(pasarPregunta);
-			
-			if (request.getParameter("decripcion")=="Selección Única"){
-				response.sendRedirect("../ActualizarPreguntaSU.jsp?pregunta="+request.getParameter("pregunta")+"&descripcion="+
-						request.getParameter("descripcion")+"&ayuda="+datos.getDescripcionAyuda()+
-						"&respuesta="+datos.getRespuestaCorrecta());
-			}else{
-				response.sendRedirect("../ActualizarPreguntas.jsp?pregunta="+request.getParameter("pregunta")+"&descripcion="+
-						request.getParameter("descripcion")+"&ayuda="+datos.getDescripcionAyuda()+
-						"&respuesta="+datos.getRespuestaCorrecta());				
-			}
 		}
 	}
 	/**
@@ -101,6 +86,8 @@ public class ServletPregunta extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DaoPregunta pregunta=new DaoPregunta();
+		DtoPregunta dtoPregunta = new DtoPregunta();
+		HttpSession session = request.getSession(true);
 		
 		if(request.getParameter("agregarPregunta")!=null) {			
 			String tema = request.getParameter("tema");
@@ -119,13 +106,12 @@ public class ServletPregunta extends HttpServlet {
 			String descripcion = request.getParameter("descripcion"); 
 			String pPregunta = request.getParameter("pregunta"); 
 			pregunta.agregarPreguntaEvaluacion(tema, subtema, descripcion, pPregunta, evaluacion, curso);
+			response.sendRedirect("AgregarPreguntasEvaluacion.jsp");
 			
 		}else if(request.getParameter("parar")!=null){
 			response.sendRedirect("MenuPrincipal.jsp");
 		}
 		else if(request.getParameter("actualizacionPregunta")!=null){
-			DtoPregunta dtoPregunta = new DtoPregunta();
-			
 			dtoPregunta.setTema(request.getParameter("tema"));
 			dtoPregunta.setSubtema(request.getParameter("subtema"));
 			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
@@ -135,6 +121,26 @@ public class ServletPregunta extends HttpServlet {
 			
 			pregunta.actualizarPregunta(dtoPregunta,request.getParameter("preguntaOriginal"));
 			response.sendRedirect("Preguntas3.jsp");
+			
+		}else if(request.getParameter("modificarPregunta")!=null){
+			
+			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
+			dtoPregunta.setPregunta(request.getParameter("pregunta"));
+				
+			dtoPregunta.setTema(session.getAttribute("DescripcionTema").toString());
+			dtoPregunta.setSubtema(session.getAttribute("DescripcionSubtema").toString());
+			
+			DtoPregunta datos = pregunta.getDatosPregunta(dtoPregunta);	
+			response.sendRedirect("Preguntas3.jsp");
+			session.setAttribute("descripcion", dtoPregunta.getDescripcionPregunta());
+			session.setAttribute("pregunta", dtoPregunta.getPregunta());
+			session.setAttribute("ayuda", datos.getDescripcionAyuda());
+			session.setAttribute("respuesta", datos.getRespuestaCorrecta());			
+			
+			if (dtoPregunta.getDescripcionPregunta().equalsIgnoreCase("Selección Única"))
+				response.sendRedirect("../ActualizarPreguntaSU.jsp");
+			
+			response.sendRedirect("../ActualizarPregunta.jsp");
 		}
 	}
 }
