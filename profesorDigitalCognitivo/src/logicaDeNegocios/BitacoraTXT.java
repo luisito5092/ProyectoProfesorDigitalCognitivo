@@ -13,6 +13,7 @@ package logicaDeNegocios;
 	import com.csvreader.CsvReader;
 	import logicaDeNegocios.dto.DtoBitacora;
 	import serviciosCognitivos.Encriptar;
+import serviciosCognitivos.EncriptarDatos;
 	
 	public class BitacoraTXT extends Bitacora {
 		
@@ -27,7 +28,6 @@ package logicaDeNegocios;
 			DateFormat dateFormatFecha = new SimpleDateFormat("yyyy-MM-dd");
 			DateFormat dateFormatHora = new SimpleDateFormat("HH:mm:ss");
 			Date date = new Date();
-			Encriptar encriptar=new Encriptar();
 			try{
 				FileWriter modificar = new FileWriter(getRuta(), true);
 				BufferedWriter bufferModificar = new BufferedWriter(modificar);
@@ -35,7 +35,7 @@ package logicaDeNegocios;
 					bufferModificar.write("usuario" + "-" + "fecha" + "-" + "hora"+ "-" + "descripcion" + "-" + "codigoCurso");
 					bufferModificar.newLine();
 				}
-				bufferModificar.write(encriptar.codificar(email) + "-" + encriptar.codificar(dateFormatFecha.format(date).toString()) + "-" + encriptar.codificar(dateFormatHora.format(date)) + "-" + encriptar.codificar(descripcion) + "-" + encriptar.codificar(codigo));
+				bufferModificar.write(EncriptarDatos.codificar(email) + "-" + EncriptarDatos.codificar(dateFormatFecha.format(date).toString()) + "-" + EncriptarDatos.codificar(dateFormatHora.format(date)) + "-" + EncriptarDatos.codificar(descripcion) + "-" + EncriptarDatos.codificar(codigo));
 				//bufferModificar.write(email + "-" + dateFormatFecha.format(date).toString() + "-" + dateFormatHora.format(date) + "-" + descripcion + "-" + codigo);
 				bufferModificar.newLine();
 				bufferModificar.close();
