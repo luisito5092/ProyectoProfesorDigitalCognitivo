@@ -49,6 +49,7 @@ public class ServletProfesorFixed extends HttpServlet {
 		profe.setContrasenia(request.getParameter("contrasenia"));
 		profe.setCorreoElectronico(request.getParameter("correo"));
 		profe.setNombre(request.getParameter("nombre"));
+		profe.setTelefono(request.getParameter("telefono"));
 		
 		FabricaProfesor fabrica=new FabricaProfesor();
 		Profesor profesorFabricado = fabrica.fabricarProfesor(profe);

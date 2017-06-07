@@ -47,8 +47,7 @@ public class ServletEstudiante2 extends HttpServlet {
 		estudiante.setPrimerApellido(request.getParameter("primerApellido"));
 		estudiante.setSegundoApellido(request.getParameter("segundoApellido"));
 		estudiante.setNumeroCarne(request.getParameter("carne"));
-		
-		       
+		estudiante.setTelefono(request.getParameter("telefono"));
 		
 		FabricaEstudiante fabrica= new FabricaEstudiante();
 				

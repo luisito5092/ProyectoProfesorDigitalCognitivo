@@ -26,7 +26,7 @@
 			<table>
 			<tr>
 				<td class="fuenteLetra5">Pregunta</td>
-				<td><input type="text" placeholder="   pregunta" name="pregunta" /></td>
+				<td><input type="text" placeholder="   pregunta" name="pregunta"/></td>
 			</tr>
 			<tr>
 				<td class="fuenteLetra5">Descripción Ayuda</td>
@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td class="fuenteLetra5">Respuesta Correcta</td>
-				<td><input type="text" placeholder=" Respuesta Correcta" name="respuestaCorrecta" /></td>
+				<td><textarea type="text" placeholder=" Respuesta Correcta" name="respuestaCorrecta"></textarea>></td>
 			</tr>
 
 			<tr>

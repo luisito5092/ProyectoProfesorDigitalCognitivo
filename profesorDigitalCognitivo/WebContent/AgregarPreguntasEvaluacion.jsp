@@ -44,13 +44,9 @@ String getEvaluacion = request.getParameter("nombreEvaluacion");
 	<div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4>
-            Evaluaciones 
-          </h4>
+        	<a href="registrarCurso.jsp"><button type="button" class="btn btn-primary" onClick="alert('Se ha registrado la evaluación con éxito.')">Dejar de asignar preguntas a <%=getEvaluacion%></button></a>
         </div>
-        <form action="/ServletPregunta" method="post">
-				<input type="submit" value="Dejar de agregar preguntas" name="parar" onClick="alert('Se ha registrado la evaluación con éxito.')"/>
-		</form>
+        
         <table class="table table-fixed" >
         	<thead>
             <tr>
@@ -71,7 +67,7 @@ String getEvaluacion = request.getParameter("nombreEvaluacion");
 							<td><%=pregunta.getDescripcionPregunta() %> </td>
 							<td><%=pregunta.getPregunta() %> </td>	
 							<td>
-							<form action="/ServletPregunta" method="post" >
+							<form action="/ServletPregunta" method="get	" >
 								<input type="hidden" value="<%=getCodigo%>" name="codigoCurso">
 								<input type="hidden" value="<%=getEvaluacion%>" name="nombreEvaluacion">
 					

@@ -18,7 +18,7 @@ public class DaoProfesor {
 		try {
 			state= ConexionSingleton.conectar().createStatement();
 			String sql="INSERT INTO profesor VALUES('" + daoProfesor.getCorreo() + "','" + daoProfesor.getContrasenia() +
-					"','"+daoProfesor.getNombre()+"');";
+					"','"+daoProfesor.getNombre()+"' ,'" + daoProfesor.getTelefono() +"');";
 			state.executeUpdate(sql);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -102,7 +102,6 @@ public class DaoProfesor {
 	        String sql = "SELECT * FROM profesor WHERE correoElectronico='"+profesor.getCorreoElectronico()+"' AND contrasenia='"+
 	        		profesor.getContrasenia()+"';";
 	        ResultSet rs1=state.executeQuery(sql);
-	        
 	        return rs1.next();
 	  }
 }

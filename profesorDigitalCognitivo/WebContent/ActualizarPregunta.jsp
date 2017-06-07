@@ -1,6 +1,6 @@
 <%
-	 String subtema = session.getAttribute("subtema").toString();
-	 String tema = session.getAttribute("tema").toString();
+	 String subtema = session.getAttribute("DescripcionTema").toString();
+	 String tema = session.getAttribute("DescripcionSubtema").toString();
 	 
 	 String pregunta = session.getAttribute("pregunta").toString();
 	 String descripcion = session.getAttribute("descripcion").toString();
@@ -16,8 +16,6 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-	<%@ page import = "logicaDeNegocios.dao.DaoPregunta"%>
-	<%@ page import = "logicaDeNegocios.dto.DtoPregunta"%>
 <html>
 <head>
     <title>Actualizar pregunta</title>
@@ -29,43 +27,42 @@
 </head>
 
 <body>
-	<%
-	 DaoPregunta daoPregunta=new DaoPregunta();
-	 DtoPregunta dtoPregunta=new DtoPregunta();
-	%>
 	<header>
-		<div="main">
+		<div class="main">
 			<div class="wrap">
 		       		<h2>Actualización de <a class="fuenteLetra3"> Pregunta</a></h2>
 	 		</div>
 		</div> 
 	
 	<div class="contenido">
-		<form action="/ServletPregunta" method="post">
+		
 			<p class="fuenteLetra4">Modifique los datos que se desee a continuación.</p>
 			<table>
-			<tr>
-				<td class="fuenteLetra5">Pregunta</td>
-				<td><input type="text" value=<%=pregunta %> name="pregunta" /></td>
-			</tr>
-			<tr>
-				<td class="fuenteLetra5">Descripción Ayuda</td>
-				<td><input type="text" value=<%=ayuda %> name="ayuda" /></td>
-			</tr> 
-			<tr>
-				<td class="fuenteLetra5">Respuesta Correcta</td>
-				<td><input type="text" value=<%=respuesta %> name="respuesta" /></td>
-			</tr>
-			  
-			<tr>
-				<td><input type="hidden" value=<%=pregunta %> name="preguntaOriginal" /></td>
-				<td><input type="hidden" value="<%=tema %>" name="tema"></td>
-				<td><input type="hidden" value="<%=subtema %>" name="subtema"></td>
-				<td><input type="hidden" value="<%=descripcion %>" name="descripcion"></td>
-				<td><input type="submit" value="Guardar" name="actualizacionPregunta" /></td>
-			</tr>
-		</table>
-	</form>
+				<form action="/ServletPregunta" method="post" onsubmit="newsearch(); return false">
+					<tr>
+						<td class="fuenteLetra5">Pregunta</td>
+						<td><input type="text" value="<%=pregunta %>" name="pregunta" /></td>
+					</tr>
+					<tr>
+						<td class="fuenteLetra5">Descripción Ayuda</td>
+						<td><input type="text" value="<%=ayuda %>" name="ayuda" /></td>
+					</tr> 
+					<tr>
+						<td class="fuenteLetra5">Respuesta Correcta</td>
+						<td><input type="text" value="<%=respuesta %>" name="respuesta" /></td>
+					</tr>   
+							   
+					<tr>
+						<td><input type="hidden" value="<%=pregunta %>" name="preguntaOriginal" /></td>
+						<td><input type="hidden" value="<%=tema %>" name="tema"></td>
+						<td><input type="hidden" value="<%=subtema %>" name="subtema"></td>
+						<td><input type="hidden" value="<%=descripcion %>"  name="descripcion"></td>
+						<td><input type="submit" value="Guardar" name="actualizacionPregunta" /></td>
+					</tr>
+				</form>
+				
+			</table>
+		
 </div>
 </header>
 			

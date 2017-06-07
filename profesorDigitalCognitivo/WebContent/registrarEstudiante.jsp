@@ -45,6 +45,10 @@
 				<td><input type="text" placeholder="   carné" name="carne" /></td>
 			</tr>
 			<tr>
+				<td class="fuenteLetra5">Número telefónico</td>
+				<td><input type="text" placeholder="   número telefónico" name="telefono" /></td>
+			</tr>
+			<tr>
 				<td class="fuenteLetra5">Correo Electrónico</td>
 				<td><input type="email" placeholder="   correo electrónico" name="correo" /></td>
 			</tr>
@@ -52,10 +56,7 @@
 				<td class="fuenteLetra5">Fecha de Nacimiento</td>
 				<td><input type="date" name="fecha" /></td>
 			</tr>
-			<tr>
-				<td></td>
-				<td><input type="file" name="Filename" size="20" /></td>
-			</tr>
+			
 			<tr>
 				<td><input type="submit" value="Registrar" id="registrar" name="registrarNuevoEstudiante" onClick="alert('Se ha registrado el estudiante con éxito');"/></td>
 			</tr>

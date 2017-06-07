@@ -26,6 +26,10 @@
 					<td><input type="text" placeholder="   nombre" name="nombre" /></td>
 				</tr>
 				<tr>
+					<td class="fuenteLetra5">Número telefónico</td>
+					<td><input type="text" placeholder="   número telefónico" name="telefono" /></td>
+				</tr>
+				<tr>
 					<td class="fuenteLetra5">Correo Electrónico</td>
 					<td><input type="text" placeholder="  correo electrónico" name="correo" /></td>
 				</tr>

@@ -49,6 +49,7 @@ public class ServletCurso extends HttpServlet {
     							request.getParameter("Descripcion"));	
     		
     	}else if(request.getParameter("actualizar")!=null){
+    		curso.setCodigo(request.getParameter("nuevoCodigo"));
     		cursoFabricado.actualizarCurso(curso, request.getParameter("codigoOriginal"));
     		response.sendRedirect("../verCurso.jsp?codigo="+request.getParameter("codigoOriginal")+"&descripcion="+
     							request.getParameter("descripcion"));   	

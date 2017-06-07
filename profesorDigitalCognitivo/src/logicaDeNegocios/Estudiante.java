@@ -12,12 +12,13 @@ public class Estudiante{
 	private String segundoApellido;
 	private String nombre;
 	private String correo;
+	private String telefono;
 	private ArrayList<EvaluacionAplicada> evaluacionesAplicadas;
 	private ArrayList<Curso> cursos;
 	
 	//************************************** CONSTRUCTOR *****************************************
 		public Estudiante(String pIdEstudiante, String pNumeroCarne, String pFechaNacimiento,
-				String pPrimerApellido, String pSegundoApellido, String pNombre, String pCorreo){
+				String pPrimerApellido, String pSegundoApellido, String pNombre, String pCorreo, String pTelefono){
 			setIdEstudiante(pIdEstudiante);
 			setNumeroCarne(pNumeroCarne);
 			setFechaNacimiento(pFechaNacimiento);
@@ -25,6 +26,7 @@ public class Estudiante{
 			setSegundoApellido(pSegundoApellido);
 			setNombre(pNombre);
 			setCorreo(pCorreo);
+			setTelefono(pTelefono);
 		}
 		
 	//************************************** GETTERS & SETTERS *****************************************
@@ -88,7 +90,12 @@ public class Estudiante{
 	public void setCursos(ArrayList<Curso> cursos) {
 		this.cursos = cursos;
 	}
-	
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String pTelefono) {
+		this.telefono = pTelefono;
+	}
 	//************************************** OTROS METODOS *****************************************
 	public void agregarEvaluacionAplicada(EvaluacionAplicada aplicada){
 		evaluacionesAplicadas.add(aplicada);

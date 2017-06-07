@@ -25,29 +25,39 @@ String getDescripcion = request.getParameter("descripcion"); %>
 		</div> 
 
 	<div class="contenido">
-		<form action="/ServletEstudiantesCurso" method="get">
-				<button type="submit" class="btn btn-primary" name="ListaEstudiantes">Lista de Estudiantes</button>
-				<input type="hidden" value=<%=getCodigo%>  name="codigoCurso">
-			</form>
-			<form action="/ServletEvaluacion" method="get">
-				<button type="submit" class="btn btn-primary" name="evaluaciones">Evaluaciones</button>
-				<input type="hidden" value=<%=getCodigo%>  name="codigoCurso">
-			</form>
-			<form action="/ServletTema" method="get">
-				<button type="submit" class="btn btn-primary" name="listaDeTemas">Lista de Temas</button>
-				<input type="hidden" value=<%=getCodigo%>  name="codigoCurso">
-			</form>  
+		<table>
+			<td> 
+				<form action="/ServletEstudiantesCurso" method="get">
+						<button type="submit" class="btn btn-primary" name="ListaEstudiantes">Lista de Estudiantes</button>
+						<input type="hidden" value="<%=getCodigo%>"  name="codigoCurso">
+				</form>
+			</td>
+			<td>
+				<form action="/ServletEvaluacion" method="get">
+					<button type="submit" class="btn btn-primary" name="evaluaciones">Evaluaciones</button>
+					<input type="hidden" value="<%=getCodigo%>"  name="codigoCurso">
+				</form>
+			</td>
+			<td>
+				<form action="/ServletTema" method="get">
+					<button type="submit" class="btn btn-primary" name="listaDeTemas">Lista de Temas</button>
+					<input type="hidden" value="<%=getCodigo%>"  name="codigoCurso">
+				</form> 
+			</td>
+		</table> 
 
 		<form action="/ServletCurso" method="get">
 			<table>
 			<tr>
 				<td class="fuenteLetra5">Código:</td>
-				<td><input type="text" placeholder="   código" value=<%=getCodigo%> name="codigo" /></td>
+				<td class="fuenteLetra5"><%=getCodigo%></td>
 			</tr>
 			<tr>
 				<td class="fuenteLetra5" >Descripción</td>
-				<input type="hidden" value="<%=getCodigo %>" name="codigoOriginal">
-				<td><input type="text" placeholder="   descripción" value=<%=getDescripcion%> name="descripcion" /></td></tr><tr>
+				<td><input type="hidden" value="<%=getCodigo %>" name="codigoOriginal"></td>
+				<td><input type="text" value="<%=getDescripcion%>" name="descripcion" /></td>
+			</tr>
+			<tr>
 				<td><input type="submit" name="actualizar" value="Guardar Cambios"></td>
 			</tr>
 			</table>

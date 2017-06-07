@@ -8,13 +8,16 @@ public class Profesor{
 	private String correo;
 	private String contrasenia;
 	private String nombre;
+	private String telefono;
 	private ArrayList<Curso> cursos;
 	
+	
 	//************************************** CONSTRUCTOR *****************************************
-	public Profesor(String pNombre, String pCorreo, String pContrasenia){
+	public Profesor(String pNombre, String pCorreo, String pContrasenia, String pTelefono){
 		setNombre(pNombre);
 		setCorreo(pCorreo);
 		setContrasenia(pContrasenia);
+		setTelefono(pTelefono);
 	}
 	
 	//************************************** GETTERS & SETTERS *****************************************
@@ -48,7 +51,12 @@ public class Profesor{
 	public void setCursos(ArrayList<Curso> cursos) {
 		this.cursos = cursos;
 	}
-	
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String pTelefono) {
+		this.telefono = pTelefono;
+	}
 	//************************************** OTROS METODOS *****************************************
 	public void almacenarProfesor(Profesor pProfesor){
 		DaoProfesor crearP=new DaoProfesor();

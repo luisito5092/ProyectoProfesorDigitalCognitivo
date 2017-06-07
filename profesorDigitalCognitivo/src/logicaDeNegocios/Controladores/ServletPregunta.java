@@ -79,6 +79,15 @@ public class ServletPregunta extends HttpServlet {
 				pregunta.eliminarPregunta(dtoPregunta);
 				response.sendRedirect("Preguntas3.jsp");
 			
+		}else if(request.getParameter("agregarPreguntaEvaluacion")!=null){
+			String curso = request.getParameter("codigoCurso"); 
+			String evaluacion = request.getParameter("nombreEvaluacion"); 
+			String tema = request.getParameter("tema"); 
+			String subtema = request.getParameter("subtema"); 
+			String descripcion = request.getParameter("descripcion"); 
+			String pPregunta = request.getParameter("pregunta"); 
+			pregunta.agregarPreguntaEvaluacion(tema, subtema, descripcion, pPregunta, evaluacion, curso);
+			response.sendRedirect("AgregarPreguntasEvaluacion.jsp&codigo="+curso+"&nombreEvaluacion="+evaluacion);
 		}
 	}
 	/**
@@ -98,49 +107,39 @@ public class ServletPregunta extends HttpServlet {
 			String codigo = request.getParameter("codigoCurso");
 			pregunta.agregarPreguntaEvaluacion(tema, subtema, descripcion, pPregunta, evaluacion, codigo);
 		
-		}else if(request.getParameter("agregarPreguntaEvaluacion")!=null){
-			String curso = request.getParameter("codigoCurso"); 
-			String evaluacion = request.getParameter("nombreEvaluacion"); 
-			String tema = request.getParameter("tema"); 
-			String subtema = request.getParameter("subtema"); 
-			String descripcion = request.getParameter("descripcion"); 
-			String pPregunta = request.getParameter("pregunta"); 
-			pregunta.agregarPreguntaEvaluacion(tema, subtema, descripcion, pPregunta, evaluacion, curso);
-			response.sendRedirect("AgregarPreguntasEvaluacion.jsp");
-			
-		}else if(request.getParameter("parar")!=null){
-			response.sendRedirect("MenuPrincipal.jsp");
-		}
-		else if(request.getParameter("actualizacionPregunta")!=null){
+		}else if(request.getParameter("actualizacionPregunta")!=null){
 			dtoPregunta.setTema(request.getParameter("tema"));
 			dtoPregunta.setSubtema(request.getParameter("subtema"));
 			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
 			dtoPregunta.setPregunta(request.getParameter("pregunta"));
 			dtoPregunta.setDescripcionAyuda(request.getParameter("ayuda"));
 			dtoPregunta.setRespuestaCorrecta(request.getParameter("respuesta"));
-			
+				
 			pregunta.actualizarPregunta(dtoPregunta,request.getParameter("preguntaOriginal"));
 			response.sendRedirect("Preguntas3.jsp");
 			
-		}else if(request.getParameter("modificarPregunta")!=null){
+		}else if(request.getParameter("modificarPregunta")!=null){			
+			String descripcion = (request.getParameter("descripcion"));
+			String pPregunta = (request.getParameter("pregunta"));
+			String ayuda = (request.getParameter("ayuda"));				
+			String tema = (session.getAttribute("DescripcionTema").toString());
+			String subtema = (session.getAttribute("DescripcionSubtema").toString());			
+			String respuesta = pregunta.getRespuesta(tema, subtema, descripcion, pPregunta);
 			
-			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
-			dtoPregunta.setPregunta(request.getParameter("pregunta"));
-				
-			dtoPregunta.setTema(session.getAttribute("DescripcionTema").toString());
-			dtoPregunta.setSubtema(session.getAttribute("DescripcionSubtema").toString());
+			session.setAttribute("descripcion", descripcion);
+			session.setAttribute("pregunta", pPregunta);
+			session.setAttribute("ayuda", ayuda);
+			session.setAttribute("respuesta", respuesta);		
 			
-			DtoPregunta datos = pregunta.getDatosPregunta(dtoPregunta);	
-			response.sendRedirect("Preguntas3.jsp");
-			session.setAttribute("descripcion", dtoPregunta.getDescripcionPregunta());
-			session.setAttribute("pregunta", dtoPregunta.getPregunta());
-			session.setAttribute("ayuda", datos.getDescripcionAyuda());
-			session.setAttribute("respuesta", datos.getRespuestaCorrecta());			
-			
-			if (dtoPregunta.getDescripcionPregunta().equalsIgnoreCase("Selección Única"))
+			if (descripcion.equals("Selección Única")){
 				response.sendRedirect("../ActualizarPreguntaSU.jsp");
+			}
+				
+			else{
+				response.sendRedirect("ActualizarPregunta.jsp");
+			}
 			
-			response.sendRedirect("../ActualizarPregunta.jsp");
+			
 		}
 	}
 }
