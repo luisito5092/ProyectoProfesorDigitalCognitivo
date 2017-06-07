@@ -5,7 +5,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 	<%@ page import = "logicaDeNegocios.Bitacora"%>
-	<%@ page import = "logicaDeNegocios.BitacoraCSV"%>
+	<%@ page import = "logicaDeNegocios.BitacoraTXT"%>
 	<%@ page import = "logicaDeNegocios.dto.DtoBitacora"%>
 <html>
 <head>
@@ -20,12 +20,12 @@
 </head>
 </head>
 <body>
-	<% Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+session.getAttribute("logueado").toString()+".csv");
+	<% Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+session.getAttribute("logueado").toString()+".txt");
 	 DtoBitacora dto=new DtoBitacora();%>
 	<header>
 		<div="main">
 			<div class="wrap">
-		       		<h2 class=fuenteletra8 >Bitácoras <a class="fuenteLetra3">CSV <%=session.getAttribute("Fecha11").toString()%> <%=session.getAttribute("Fecha22").toString()%></a></h2>
+		       		<h2 class=fuenteletra8 >Bitácoras <a class="fuenteLetra3">CSV </a></h2>
 	 		</div>
 		</div> 
      <div class="contenido" style="margin:45px auto"></hr>
@@ -58,8 +58,8 @@
           <tbody>
           	<tr>
 				<% 
-					for(int i=0; i<csv.leerRegistro(session.getAttribute("Fecha11").toString(), session.getAttribute("Fecha22").toString()).size();i++){
-						dto=csv.leerRegistro(session.getAttribute("Fecha11").toString(), session.getAttribute("Fecha22").toString()).get(i);
+					for(int i=0; i<txt.leerRegistro(session.getAttribute("Fecha11").toString(), session.getAttribute("Fecha22").toString()).size();i++){
+						dto=txt.leerRegistro(session.getAttribute("Fecha11").toString(), session.getAttribute("Fecha22").toString()).get(i);
 				%>
 							<td><%=dto.getCorreoProfesor()%></td>
         					<td><%=dto.getFecha()%></td>

@@ -58,7 +58,7 @@ public class BitacoraCSV extends Bitacora {
 			e.printStackTrace();
 		}
 	}
-
+/*
 	public ArrayList<DtoBitacora> leerRegistro(String fechaInicio,String fechaFinal){
 		ArrayList<DtoBitacora> listaBitacoras=new ArrayList<DtoBitacora>();
 		SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -70,16 +70,16 @@ public class BitacoraCSV extends Bitacora {
 				CsvReader bitacora = new CsvReader(getRuta());	
 				bitacora.readHeaders();
 				while (bitacora.readRecord()){
-				//	Date actual = fecha.parse(EncriptarDatos.decodificar(bitacora.get("Fecha")));
-				//	if(actual.after(inicio) && actual.before(finall)){
+					Date actual = fecha.parse(EncriptarDatos.decodificar(bitacora.get("Fecha")));
+					if(actual.after(inicio) && actual.before(finall)){
 						DtoBitacora dto=new DtoBitacora();
-						dto.setCorreoProfesor(EncriptarDatos.decodificar(bitacora.get("CorreoProfesor")));
-						dto.setFecha(EncriptarDatos.decodificar(bitacora.get("Fecha")));
-						dto.setHora(EncriptarDatos.decodificar(bitacora.get("Hora")));
-						dto.setDescripcion(EncriptarDatos.decodificar(bitacora.get("Descripcion")));
-						dto.setCodigoCurso(EncriptarDatos.decodificar(bitacora.get("CodigoCurso")));
+						dto.setCorreoProfesor(bitacora.get("CorreoProfesor"));
+						dto.setFecha(bitacora.get("Fecha"));
+						dto.setHora(bitacora.get("Hora"));
+						dto.setDescripcion(bitacora.get("Descripcion"));
+						dto.setCodigoCurso(bitacora.get("CodigoCurso"));
 						listaBitacoras.add(dto);
-				//	}
+					}
 				}
 				bitacora.close();
 			}
@@ -90,6 +90,38 @@ public class BitacoraCSV extends Bitacora {
 			
 		}
 		
+		return listaBitacoras;
+	}	*/
+	
+	public ArrayList<DtoBitacora> leerRegistro(String fechaInicio,String fechaFinal){
+		ArrayList<DtoBitacora> listaBitacoras=new ArrayList<DtoBitacora>();
+		SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
+		try{
+			Date inicio = fecha.parse(fechaInicio);
+			Date finall = fecha.parse(fechaFinal);
+			try{
+				CsvReader bitacora = new CsvReader(getRuta());	
+				bitacora.readHeaders();
+				while (bitacora.readRecord()){
+					Date actual = fecha.parse(EncriptarDatos.decodificar(bitacora.get("Fecha")));
+					if(actual.after(inicio) && actual.before(finall)){
+						DtoBitacora dto=new DtoBitacora();
+						dto.setCorreoProfesor(EncriptarDatos.decodificar(bitacora.get("CorreoProfesor")));
+						dto.setFecha(EncriptarDatos.decodificar(bitacora.get("Fecha")));
+						dto.setHora(EncriptarDatos.decodificar(bitacora.get("Hora")));
+						dto.setDescripcion(EncriptarDatos.decodificar(bitacora.get("Descripcion")));
+						dto.setCodigoCurso(EncriptarDatos.decodificar(bitacora.get("CodigoCurso")));
+						listaBitacoras.add(dto);
+					}
+				}
+				bitacora.close();
+			}
+			catch(Exception e){
+				
+			}
+		}catch(Exception e){
+			
+		}
 		return listaBitacoras;
 	}	
 		
