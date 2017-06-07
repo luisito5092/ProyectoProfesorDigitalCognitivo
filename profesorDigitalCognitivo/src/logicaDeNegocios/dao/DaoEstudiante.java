@@ -19,7 +19,7 @@ public class DaoEstudiante {
 			state= ConexionSingleton.conectar().createStatement();
 			String sql="INSERT INTO estudiante VALUES('" + estudiante.getIdEstudiante() + "','" + estudiante.getNumeroCarne()  + "','" +
 					estudiante.getNombre()  + "','" + estudiante.getPrimerApellido()  + "','" + estudiante.getSegundoApellido()  + "','" + 
-					estudiante.getCorreo() + "','"+estudiante.getFechaNacimiento()+"');";
+					estudiante.getCorreo() + "','"+estudiante.getFechaNacimiento()+"','"+estudiante.getTelefono()+"');";
 			state.executeUpdate(sql);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block

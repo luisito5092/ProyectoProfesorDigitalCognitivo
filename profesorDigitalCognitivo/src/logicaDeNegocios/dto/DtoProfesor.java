@@ -8,6 +8,7 @@ public class DtoProfesor{
 	private String correoElectronico;
 	private String contrasenia;
 	private ArrayList<DtoCurso> cursos;
+	private String telefono;
 	
 	
 	//************************************** GETTERS & SETTERS *****************************************
@@ -42,6 +43,12 @@ public class DtoProfesor{
 	}
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String pTelefono) {
+		this.telefono = pTelefono;
 	}
 	//************************************** OTROS METODOS *****************************************
 	public void asignarCurso(DtoCurso pCurso){

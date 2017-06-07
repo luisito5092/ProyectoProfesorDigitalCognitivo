@@ -40,6 +40,7 @@ public class ServletPregunta extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DtoPregunta pasarPregunta=new DtoPregunta();
 		DaoPregunta pregunta=new DaoPregunta();
+		HttpSession session = request.getSession(true);
 		
 		if(request.getParameter("guardarPregunta")!=null){
 			pasarPregunta.setPregunta(request.getParameter("pregunta"));
@@ -51,7 +52,7 @@ public class ServletPregunta extends HttpServlet {
 				pregunta.crearPregunta(pasarPregunta.getPregunta(),pasarPregunta.getDescripcionPregunta(),
 						pasarPregunta.getDescripcionAyuda(), pasarPregunta.getRespuestaCorrecta(),
 						request.getParameter("DescripcionSubtema"), request.getParameter("DescripcionTema"));
-				HttpSession session = request.getSession(true);
+				
 				session.setAttribute("Pregunta",request.getParameter("pregunta"));
 				response.sendRedirect("RespuestasIncorrectas.jsp");
 
@@ -100,6 +101,17 @@ public class ServletPregunta extends HttpServlet {
 				pregunta.eliminarPregunta(dtoPregunta);
 				response.sendRedirect("Preguntas3.jsp");
 			
+<<<<<<< HEAD
+		}else if(request.getParameter("agregarPreguntaEvaluacion")!=null){
+			String curso = request.getParameter("codigoCurso"); 
+			String evaluacion = request.getParameter("nombreEvaluacion"); 
+			String tema = request.getParameter("tema"); 
+			String subtema = request.getParameter("subtema"); 
+			String descripcion = request.getParameter("descripcion"); 
+			String pPregunta = request.getParameter("pregunta"); 
+			pregunta.agregarPreguntaEvaluacion(tema, subtema, descripcion, pPregunta, evaluacion, curso);
+			response.sendRedirect("AgregarPreguntasEvaluacion.jsp&codigo="+curso+"&nombreEvaluacion="+evaluacion);
+=======
 		}else if(request.getParameter("modificarPregunta")!=null){
 			pasarPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
 			pasarPregunta.setPregunta(request.getParameter("pregunta"));
@@ -116,6 +128,7 @@ public class ServletPregunta extends HttpServlet {
 						request.getParameter("descripcion")+"&ayuda="+datos.getDescripcionAyuda()+
 						"&respuesta="+datos.getRespuestaCorrecta());				
 			}
+>>>>>>> origin/master
 		}
 	}
 	/**
@@ -123,6 +136,8 @@ public class ServletPregunta extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DaoPregunta pregunta=new DaoPregunta();
+		DtoPregunta dtoPregunta = new DtoPregunta();
+		HttpSession session = request.getSession(true);
 		
 		if(request.getParameter("agregarPregunta")!=null) {			
 			String tema = request.getParameter("tema");
@@ -133,30 +148,39 @@ public class ServletPregunta extends HttpServlet {
 			String codigo = request.getParameter("codigoCurso");
 			pregunta.agregarPreguntaEvaluacion(tema, subtema, descripcion, pPregunta, evaluacion, codigo);
 		
-		}else if(request.getParameter("agregarPreguntaEvaluacion")!=null){
-			String curso = request.getParameter("codigoCurso"); 
-			String evaluacion = request.getParameter("nombreEvaluacion"); 
-			String tema = request.getParameter("tema"); 
-			String subtema = request.getParameter("subtema"); 
-			String descripcion = request.getParameter("descripcion"); 
-			String pPregunta = request.getParameter("pregunta"); 
-			pregunta.agregarPreguntaEvaluacion(tema, subtema, descripcion, pPregunta, evaluacion, curso);
-			
-		}else if(request.getParameter("parar")!=null){
-			response.sendRedirect("MenuPrincipal.jsp");
-		}
-		else if(request.getParameter("actualizacionPregunta")!=null){
-			DtoPregunta dtoPregunta = new DtoPregunta();
-			
+		}else if(request.getParameter("actualizacionPregunta")!=null){
 			dtoPregunta.setTema(request.getParameter("tema"));
 			dtoPregunta.setSubtema(request.getParameter("subtema"));
 			dtoPregunta.setDescripcionPregunta(request.getParameter("descripcion"));
 			dtoPregunta.setPregunta(request.getParameter("pregunta"));
 			dtoPregunta.setDescripcionAyuda(request.getParameter("ayuda"));
 			dtoPregunta.setRespuestaCorrecta(request.getParameter("respuesta"));
-			
+				
 			pregunta.actualizarPregunta(dtoPregunta,request.getParameter("preguntaOriginal"));
 			response.sendRedirect("Preguntas3.jsp");
+			
+		}else if(request.getParameter("modificarPregunta")!=null){			
+			String descripcion = (request.getParameter("descripcion"));
+			String pPregunta = (request.getParameter("pregunta"));
+			String ayuda = (request.getParameter("ayuda"));				
+			String tema = (session.getAttribute("DescripcionTema").toString());
+			String subtema = (session.getAttribute("DescripcionSubtema").toString());			
+			String respuesta = pregunta.getRespuesta(tema, subtema, descripcion, pPregunta);
+			
+			session.setAttribute("descripcion", descripcion);
+			session.setAttribute("pregunta", pPregunta);
+			session.setAttribute("ayuda", ayuda);
+			session.setAttribute("respuesta", respuesta);		
+			
+			if (descripcion.equals("Selección Única")){
+				response.sendRedirect("../ActualizarPreguntaSU.jsp");
+			}
+				
+			else{
+				response.sendRedirect("ActualizarPregunta.jsp");
+			}
+			
+			
 		}
 	}
 }

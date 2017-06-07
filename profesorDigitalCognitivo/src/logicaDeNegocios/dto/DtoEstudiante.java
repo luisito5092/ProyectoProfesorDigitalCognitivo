@@ -11,6 +11,7 @@ public class DtoEstudiante{
 	private String segundoApellido;
 	private String nombre;
 	private String correo;
+	private String telefono;
 	
 	//************************************** GETTERS & SETTERS *****************************************
 	public String getIdEstudiante() {
@@ -55,6 +56,11 @@ public class DtoEstudiante{
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String pTelefono) {
+		this.telefono = pTelefono;
+	}
 	
 }

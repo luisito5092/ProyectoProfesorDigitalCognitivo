@@ -2,6 +2,7 @@ package logicaDeNegocios.Controladores;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -32,16 +33,25 @@ import logicaDeNegocios.BitacoraTXT;
 import logicaDeNegocios.BitacoraXML;
 import logicaDeNegocios.Curso;
 import logicaDeNegocios.Evaluacion;
+<<<<<<< HEAD
+import logicaDeNegocios.verificacionSMS;
+import logicaDeNegocios.dao.DaoEvaluacion;
+import logicaDeNegocios.dao.DaoEvaluacionAplicada;
+import logicaDeNegocios.dao.DaoParteEvaluacion;
+import logicaDeNegocios.dao.DaoProfesor;
+=======
 import logicaDeNegocios.dao.DaoBitacora;
 import logicaDeNegocios.dao.DaoEvaluacion;
 import logicaDeNegocios.dao.DaoEvaluacionAplicada;
 import logicaDeNegocios.dao.DaoParteEvaluacion;
 import logicaDeNegocios.dto.DtoBitacora;
+>>>>>>> origin/master
 import logicaDeNegocios.dto.DtoCurso;
 import logicaDeNegocios.dto.DtoEvaluacion;
 import logicaDeNegocios.dto.DtoEvaluacionAplicada;
 import logicaDeNegocios.dto.DtoParteEvaluacion;
 import logicaDeNegocios.dto.DtoPregunta;
+import logicaDeNegocios.dto.DtoProfesor;
 import logicaDeNegocios.factory.FabricaCurso;
 import logicaDeNegocios.factory.FabricaEvaluacion;
 import logicaDeNegocios.factory.FabricaEvaluacionFormativa;
@@ -175,7 +185,7 @@ public class ServletEvaluacion extends HttpServlet {
 				
 				Paragraph titulo=new Paragraph();
 				Font fontTitulo=new Font(Font.FontFamily.HELVETICA,16,Font.BOLD,BaseColor.BLACK);
-				titulo.add(new Phrase("Evaluación " + evaluacion +"",fontTitulo));
+				titulo.add(new Phrase("Evaluaciï¿½n " + evaluacion +"",fontTitulo));
 				titulo.setAlignment(Element.ALIGN_CENTER);
 				titulo.add(new Phrase(Chunk.NEWLINE));
 				titulo.add(new Phrase(Chunk.NEWLINE));
@@ -277,7 +287,7 @@ public class ServletEvaluacion extends HttpServlet {
 				
 				Paragraph titulo=new Paragraph();
 				Font fontTitulo=new Font(Font.FontFamily.HELVETICA,16,Font.BOLD,BaseColor.BLACK);
-				titulo.add(new Phrase("Estado de la Evaluación " + evaluacion,fontTitulo));
+				titulo.add(new Phrase("Estado de la Evaluaciï¿½n " + evaluacion,fontTitulo));
 				titulo.setAlignment(Element.ALIGN_CENTER);
 				titulo.add(new Phrase(Chunk.NEWLINE));
 				titulo.add(new Phrase(Chunk.NEWLINE));
@@ -316,9 +326,46 @@ public class ServletEvaluacion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession(true);
+		DtoProfesor profe=new DtoProfesor();
+		profe.setCorreoElectronico(request.getParameter("usuario"));
+		profe.setContrasenia(request.getParameter("contrasenia"));
+		DaoProfesor consulta=new DaoProfesor();
 		
-
-
+		if(request.getParameter("pEnviarSMS")!=null){
+			verificacionSMS sms = new verificacionSMS();
+			String codigo = sms.generarPIN();
+			session.setAttribute("codigoVerificacion",codigo); 
+			session.setAttribute("contador",3); 
+			
+			try {
+				String telefono = "+506"+consulta.getTelefono(request.getParameter("usuario").toString());
+				sms.enviarSms(telefono, codigo);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}	
+		}	
+		
+		else if(request.getParameter("pIngresar")!=null){
+			verificacionSMS sms = new verificacionSMS();
+			String codigo = sms.generarPIN();
+			sms.enviarSms(request.getParameter("telefono"), codigo);
+			session.setAttribute("codigoVerificacion",codigo);
+			response.sendRedirect("VerificacionTelefonica.jsp");
+		}else if(request.getParameter("eEnviarSMS")!=null){
+			verificacionSMS sms = new verificacionSMS();
+			String codigo = sms.generarPIN();
+			sms.enviarSms(request.getParameter("telefono"), codigo);
+			session.setAttribute("codigoVerificacion",codigo); 
+			session.setAttribute("contador",codigo); 
+		}		
+		else if(request.getParameter("eIngresar")!=null){
+			verificacionSMS sms = new verificacionSMS();
+			String codigo = sms.generarPIN();
+			sms.enviarSms(request.getParameter("telefono"), codigo);
+			session.setAttribute("codigoVerificacion",codigo);
+			response.sendRedirect("VerificacionTelefonica.jsp");
+		}
+		
 }
 }

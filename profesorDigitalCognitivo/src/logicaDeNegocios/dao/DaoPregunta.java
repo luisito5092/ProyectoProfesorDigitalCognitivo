@@ -69,9 +69,9 @@ public class DaoPregunta {
 					+ "where pregunta='"+preguntaOriginal+"' and descripcion='"+descripcion+"' "
 					+ "	and subtema_descripcion='"+subtema+"' and subtema_tema_descripcion='"+tema+"'"
 					+ " and pregunta not in (select preguntaSubtema_pregunta from preguntaEvaluacion "
-												+ " where subtema_descripcion='"+subtema+"'"
-												+ " and subtema_tema_descripcion='"+tema+"'"
-												+ " group by preguntaSubtema_pregunta);";
+												+ " where preguntaSubtema_subtema_descripcion='"+subtema+"'"
+												+ " and preguntaSubtema_subtema_tema_descripcion='"+tema+"'"
+												+ " group by preguntaSubtema_pregunta);";			
 			state.executeUpdate(sql);
 			
 		} catch (SQLException e1) {
@@ -114,7 +114,7 @@ public class DaoPregunta {
 			ArrayList<DtoPregunta> listarPreguntas= new ArrayList<DtoPregunta>();
 			try {
 				state= ConexionSingleton.conectar().createStatement();
-				String sql="SELECT * FROM preguntaSubtema where subtema_descripcion='"+SubtemaDescripcion+"' AND "
+				String sql="SELECT * FROM preguntaSubtema where 	subtema_descripcion='"+SubtemaDescripcion+"' AND "
 						+ "subtema_tema_descripcion='"+TemaDescripcion+"';";
 				
 				ResultSet rs1=state.executeQuery(sql);
@@ -125,7 +125,6 @@ public class DaoPregunta {
 					pregunta.setDescripcionPregunta(rs1.getString(2));
 					pregunta.setDescripcionAyuda(rs1.getNString(3));
 					pregunta.setRespuestaCorrecta(rs1.getString(4));
-					pregunta.setSubtema(rs1.getString(5));
 					listarPreguntas.add(pregunta);
 				}
 				
@@ -136,24 +135,26 @@ public class DaoPregunta {
 			return listarPreguntas;
 		}
 	
-		public DtoPregunta getDatosPregunta(DtoPregunta dtoPregunta){
+		public String getRespuesta(String tema, String subtema, String descripcion, String pregunta){
+			String respuesta = new String();
 			try {
 				state= ConexionSingleton.conectar().createStatement();
 				String Sql="SELECT descripcionAyuda, respuestaCorrecta FROM preguntaSubtema"+
-					" where pregunta='"+dtoPregunta.getPregunta()+"' and descripcion ='"+dtoPregunta.getDescripcionPregunta()+"'"
-				+ 	" and subtema_descripcion='"+dtoPregunta.getSubtema()+"' and subtema_tema_descripcion='"+dtoPregunta.getTema()+"';";
+					" where pregunta='"+pregunta+"' and descripcion ='"+descripcion+"'"+
+				 	" and subtema_descripcion='"+subtema+"' and subtema_tema_descripcion='"+tema+"';";
 				
 				ResultSet rs1 = state.executeQuery(Sql);
+				
 				while(rs1.next()){
-					dtoPregunta.setDescripcionAyuda(rs1.getString(1));
-					dtoPregunta.setRespuestaCorrecta(rs1.getString(2));;
+					respuesta = rs1.getString(2);
+					return respuesta;
 				}
 				
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			return dtoPregunta;
+			return respuesta;
 		}
 		
 	public void AgregarRespuestasIncorrectas(ArrayList<String> respuestas,String pregunta,String descripcionSubtema,String descripcionTema){
