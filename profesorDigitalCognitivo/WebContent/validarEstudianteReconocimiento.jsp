@@ -1,5 +1,10 @@
+<%
+String codCurso = request.getParameter("codCurso").toString(); 
+String nombreEvaluacion = request.getParameter("nombreEvaluacion").toString();
+%>
+
 <%@page import="org.omg.PortableInterceptor.SYSTEM_EXCEPTION"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -9,19 +14,19 @@
     <%@page import= "java.util.*" session="true" %>
 
 <html>
-<head> <meta charset="UTF-8">
+<head> <meta charset="ISO-8859-1">
     <title>Validar Usuario</title>
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+      <h3 class="fuenteLetra3">Validar estudiante</h3>
 </head>
 </head> 
  <body>
-<video id="video" width="640" height="480" autoplay></video>
+<video id="video" width="427" height="320" autoplay></video>
 <button id="snap">1- Tomar Foto</button>
-<canvas id="canvas" width="640" height="480"></canvas>
+<canvas id="canvas" width="427" height="320"></canvas>
 
 <input type="hidden" name="jpegUrl" id="jpegUrl" value="">
 
- </body>
 <script type="text/javascript"> 
 //Grab elements, create settings, etc.
 
@@ -32,7 +37,7 @@ var imagen = document.getElementById("jpegUrl");
 
 // Trigger photo take
 document.getElementById("snap").addEventListener("click", function() {
-	context.drawImage(video, 0, 0, 640, 480);
+	context.drawImage(video, 0, 0, 427, 320);
 });
 
 // Get access to the camera!
@@ -61,21 +66,27 @@ else if(navigator.getUserMedia) { // Standard
     }, errBack);
 }
 </script>
+
+ </body>
+
 <div id="status">
 </div>          
 <center>   			
-<!-- 	    <input type="hidden" id= "jpegUrl" name="jpegUrl" /> -->
+
 	    <script type="text/javascript">    
             function validarUsuario() {
-            	
-            	
-            	
+
             var form = document.createElement("form");
 			input = document.createElement("input");
-
+			inputCodCurso =	document.createElement("input");
+			inputNombreEvaluacion =	document.createElement("input");
+			
             var dataURL = canvas.toDataURL("image/jpg");
             imagen.value = dataURL.split(/[, ]+/).pop();
 			
+            
+            
+            
             form.action = "validacionEstudiante.jsp";
             form.method = "post"
 
@@ -84,19 +95,23 @@ else if(navigator.getUserMedia) { // Standard
             input.value = imagen.value;
             form.appendChild(input);
 
+            
+            inputCodCurso.type = "hidden";
+            inputCodCurso.name = "codCurso";
+            inputCodCurso.value = "<%=codCurso%>";
+            form.appendChild(inputCodCurso);
+            
+            
+            inputNombreEvaluacion.type = "hidden";
+            inputNombreEvaluacion.name = "nombreEvaluacion";
+            inputNombreEvaluacion.value = "<%=nombreEvaluacion%>";
+            form.appendChild(inputNombreEvaluacion);
+            
+            
             document.body.appendChild(form);
-            form.submit();
-            	
-/*                     // save image without file type
-                    var dataURL = canvas.toDataURL("image/jpg");
-                    imagen.value = dataURL.split(/[, ]+/).pop();
-//                    document.getElementById("jpegUrl").value = imagen.value;               
-  					alert(imagen.value);
-  					var link = "http://localhost:8080/profesorDigitalCognitivo/validacionEstudiante.jsp?jpegUrl="+imagen.value;
-  					window.location= link;
-//                 console.log(document.getElementById("jpegUrl").value); 
-//                    document.write(imagen.value); */
+            form.submit();            
             }
+            
             </script>
         <form>    
 	    <input type="button" value="Validar" onclick="validarUsuario();" />
