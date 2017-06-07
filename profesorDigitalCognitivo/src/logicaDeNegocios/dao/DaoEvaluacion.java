@@ -1,20 +1,14 @@
 package logicaDeNegocios.dao;
 
-import java.sql.Connection;
-
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import conexionMySql.ConexionSingleton;
-import logicaDeNegocios.dto.DtoCurso;
+
 import logicaDeNegocios.dto.DtoEvaluacion;
 import serviciosCognitivos.EnviarMail;
-import serviciosCognitivos.EnviarMail2;
-
 
 
 public class DaoEvaluacion {
@@ -159,7 +153,7 @@ public class DaoEvaluacion {
 	
 	public void habilitarEvaluacion(String codigo, String nombreEvaluacion,String[] idEstudiante){
 		DaoEvaluacionAplicada aplicada=new DaoEvaluacionAplicada();
-		//EnviarMail2 email=new EnviarMail2();
+		//EnviarMail email=new EnviarMail();
 		try {
 			state= ConexionSingleton.conectar().createStatement();
 			String sql="UPDATE evaluacion SET isHabilitada=1 WHERE curso_codigo='" + codigo + "' AND nombre='" +
@@ -170,7 +164,7 @@ public class DaoEvaluacion {
 				aplicada.crearEvaluacionAplicada(idEstudiante[i],codigo,nombreEvaluacion);
 				//String sql2= "SELECT correoElectronico from estudiante where idEstudiante='"+idEstudiante[i]+"';";
 				//ResultSet rs1=state.executeQuery(sql2);
-				//email.enviarCorreo(rs1.getString(1));
+				//email.EnviarCorreo(rs1.getString(1));
 			}
 			
 		} catch (SQLException e1) {

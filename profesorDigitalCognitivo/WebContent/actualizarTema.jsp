@@ -22,7 +22,7 @@ String getDescripcion = request.getParameter("Descripcion");
 	<header>
 		<div="main">
 			<div class="wrap">
-		       		<h2>Actualizar <a class="fuenteLetra3">Tema %></a></h2>
+		       		<h2>Actualizar <a class="fuenteLetra3">Tema ></a></h2>
 	 		</div>
 		</div>
 	<div class="contenido">
@@ -33,6 +33,8 @@ String getDescripcion = request.getParameter("Descripcion");
 					<td><input type="text" value="<%= getDescripcion %>" name="nuevoTema"></td>
 				<tr>
 					<td>
+						<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
+						<input type="hidden" name="CodigoCursoActual" value="<%=session.getAttribute("IdentificadorCurso").toString()%>">
 						<input type="hidden" name="tema" value="<%=getCodigo %>" >
 						<input type="submit" value="Actualizar" name="realizarActualizacion">
 					</td>

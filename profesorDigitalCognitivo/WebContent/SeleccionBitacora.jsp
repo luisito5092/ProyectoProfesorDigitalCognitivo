@@ -18,39 +18,38 @@
 	<header>
 		<div="main">
 			<div class="wrap">
-		       		<h2>Registrar un <a class="fuenteLetra3">Tema </a></h2>
+		       		<h2>Selección de <a class="fuenteLetra3">Bitácoras </a></h2>
 	 		</div>
 		</div> 
 	
 
 	<div class="contenido">
-			<p class="fuenteLetra4">Ingrese todos los datos que se solicitan a continuación.</p>
-			<form action="/ServletTema" method="get">
+			<p class="fuenteLetra4">Seleccione los parámetros con los que desea desplegar las bitácoras:</p>
+			<form action="/ServletCurso" method="get">
 			<table>
 
 				<tr>
-				<td class="fuenteLetra5">Temas Registrados</td>
-				<td><select class="selectpicker" name="comboboxTema">
-				<% for(int i=0; i<listaT.listarTodosTemas().size();i++){
-					tema=listaT.listarTodosTemas().get(i);
-				%>
-				  <option value=<%=tema.getDescripcion()%>><%=tema.getDescripcion()%></option>
-				  <% 
-					}	
-				%>
-				<option value="Otro">Otro</option>
-				</select></td>
+				<td class="fuenteLetra5">Fecha de Inicio</td>
+				<td><input type="date" name="fechaInicio" /></td>
+				<td class="fuenteLetra5">Fecha Final</td>
+				<td><input type="date" name="fechaFinal" /></td>
 				<tr>
-					<td class="fuenteLetra5">Otro</td>
-					<td><input type="text" placeholder="   descripcion" name="TextOtro"></td>
+					<td class="fuenteLetra5">Tipo de Bitácora</td>
+					<td><select class="selectpicker" name="comboboxBitacora" style="width: 153px; ">
+					<option value="CSV">CSV</option>
+					<option value="XML">XML</option>
+					<option value="TXT">TXT</option>
+					</select></td>
+					
 				</tr>
 				
 				<tr>
 				<td>
-					<input type="hidden" name="CursoActualTema" value="<%=session.getAttribute("IdentificadorCurso").toString() %>" >
+					<input type="submit" value="Consultar" name="ConsultarBitacoras">
 					<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
-					<input type="submit" value="Registrar" name="registrarTemaCurso">
-				</td></tr>
+				</td>
+				
+				</tr>
 			</table>
 		</form>
 	</div>

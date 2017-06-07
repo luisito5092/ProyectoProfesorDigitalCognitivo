@@ -1,11 +1,5 @@
 package serviciosCognitivos;
 
-/*
- * Fichero: EnviarMail.java
- * Autor: Chuidiang
- * Fecha: 5/04/07 18:14
- */
-
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -13,17 +7,18 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.MessagingException;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.AddressException;
 
 
-/**
- * Ejemplo de envio de correo simple con JavaMail
- *
- * @author Chuidiang
- *
-  */
-public class EnviarMail{
-
-    public void enviarCorreo(String destinatario){
+public class EnviarMail
+{
+    /**
+     * main de prueba
+     * @param args Se ignoran.
+     */
+    public void EnviarCorreo(String correo){
         try
         {
             // Propiedades de la conexión
@@ -35,26 +30,27 @@ public class EnviarMail{
             props.setProperty("mail.smtp.auth", "true");
 
             // Preparamos la sesion
-            Session session = Session.getDefaultInstance(props);
+            Session session = Session.getDefaultInstance(props,null);
+            session.setDebug(true);
 
             // Construimos el mensaje
             MimeMessage message = new MimeMessage(session);
             
 //          Aqui va el destinatario
             message.setFrom(new InternetAddress("profesorrebeldesswing@gmail.com"));
-            message.addRecipient(
-                Message.RecipientType.TO,
-                new InternetAddress(destinatario));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
             
             message.setSubject("Profesor Cognitivo");
-            message.setText(
-                "Se ha habilitado una nueva evaluación, ingrese a continuación:   "
-                + "https://www.youtube.com/watch?v=XKQzAFgSPJY");
+            message.setText("La aplicación está intentando conectarte contigo. Te felixito");
+
             // Lo enviamos.
+           
             Transport t = session.getTransport("smtp");
             t.connect("profesorrebeldesswing@gmail.com", "rebeldesdelswing");
             t.sendMessage(message, message.getAllRecipients());
-            t.close();
+
+            // Cierre.
+            t.close();            
         }
         catch (Exception e)
         {

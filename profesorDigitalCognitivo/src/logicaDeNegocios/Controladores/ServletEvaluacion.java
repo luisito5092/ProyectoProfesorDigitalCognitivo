@@ -27,13 +27,25 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.codec.Base64.OutputStream;
 
+import logicaDeNegocios.Bitacora;
+import logicaDeNegocios.BitacoraCSV;
+import logicaDeNegocios.BitacoraTXT;
+import logicaDeNegocios.BitacoraXML;
 import logicaDeNegocios.Curso;
 import logicaDeNegocios.Evaluacion;
+<<<<<<< HEAD
 import logicaDeNegocios.verificacionSMS;
 import logicaDeNegocios.dao.DaoEvaluacion;
 import logicaDeNegocios.dao.DaoEvaluacionAplicada;
 import logicaDeNegocios.dao.DaoParteEvaluacion;
 import logicaDeNegocios.dao.DaoProfesor;
+=======
+import logicaDeNegocios.dao.DaoBitacora;
+import logicaDeNegocios.dao.DaoEvaluacion;
+import logicaDeNegocios.dao.DaoEvaluacionAplicada;
+import logicaDeNegocios.dao.DaoParteEvaluacion;
+import logicaDeNegocios.dto.DtoBitacora;
+>>>>>>> origin/master
 import logicaDeNegocios.dto.DtoCurso;
 import logicaDeNegocios.dto.DtoEvaluacion;
 import logicaDeNegocios.dto.DtoEvaluacionAplicada;
@@ -64,7 +76,7 @@ public class ServletEvaluacion extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		if(request.getParameter("evaluaciones")!=null){
 			response.sendRedirect("Evaluacion.jsp?codigoCurso="+request.getParameter("codigoCurso"));
 		}
@@ -89,7 +101,12 @@ public class ServletEvaluacion extends HttpServlet {
 			evaluacion.setNombreEvaluacion(request.getParameter("nombre"));
 			evaluacion.setPorcentajeCurso(porcentajeCurso);
 			evaluacion.setPuntajeTotal(puntaje);
-			
+			Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+			Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+			Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+"txt");
+			csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la evaluación "+request.getParameter("nombre")+" al curso "+request.getParameter("codigoCurso"), request.getParameter("codigoCurso"));
+			xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la evaluación "+request.getParameter("nombre")+" al curso "+request.getParameter("codigoCurso"), request.getParameter("codigoCurso"));
+			txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la evaluación "+request.getParameter("nombre")+" al curso "+request.getParameter("codigoCurso"), request.getParameter("codigoCurso"));
 			if(request.getParameter("tipo").equals("sumativa")){
 				fabrica = new FabricaEvaluacionSumativa();
 			}else{
@@ -127,12 +144,25 @@ public class ServletEvaluacion extends HttpServlet {
 		response.sendRedirect("estudiantesEvaluacion.jsp");
 		
 	}else if(request.getParameter("Habilitar")!=null){
+		Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+		Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+		Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
+		csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha habilitado la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+		xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha habilitado la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+		txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha habilitado la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
 		DaoEvaluacion eva=new DaoEvaluacion();
 		String[] idEstudiantes=request.getParameterValues("seleccion");
 		eva.habilitarEvaluacion(request.getParameter("CodigoCursoActual"), request.getParameter("NombreEvaluacionActual"),idEstudiantes);
 		response.sendRedirect("EvaluacionesNoHabilitadas.jsp");
 	}
 	else if(request.getParameter("GenerarPDF")!=null){
+		
+		Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+		Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+		Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
+		csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha descargado un PDF de la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+		xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha descargado un PDF de la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+		txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha descargado un PDF de la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
 		
 		String curso=request.getParameter("CodigoCursoActual");
 		String evaluacion=request.getParameter("NombreEvaluacion");

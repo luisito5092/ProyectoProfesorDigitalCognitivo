@@ -36,6 +36,9 @@
       
       
       <div class="contenido" ></hr>
+      <form action="/ServletCurso" method="get">
+      <button type="submit" class="btn btn-primary" name=VentanaBitacoras>Bitácoras</button>
+      </form>
 	<div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -63,6 +66,7 @@
 						<form action="/ServletCurso" method="post">
 							<input type="hidden" value="<%=curso.getCodigo() %>" name="CodigoCurso">
 							<button type="submit" name="eliminar"> <span class="glyphicon glyphicon-trash"></span></button>
+							<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
 						</form>
 				</td>
 				<td>

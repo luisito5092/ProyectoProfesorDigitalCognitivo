@@ -3,12 +3,18 @@ package logicaDeNegocios.dto;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import logicaDeNegocios.Estudiante;
+import logicaDeNegocios.Evaluacion;
+import logicaDeNegocios.Profesor;
+import logicaDeNegocios.Tema;
+
 public class DtoCurso {
 	private String codigo;
 	private String descripcion;
-	private ArrayList<DtoTema> temas;
-	private ArrayList<DtoEstudiante> estudiantes;
-	private ArrayList<DtoEvaluacion> evaluaciones;
+	private Profesor profesor;
+	private ArrayList<Tema> temas;
+	private ArrayList<Estudiante> estudiantes;
+	private ArrayList<Evaluacion> evaluaciones;
 	private String idProfesor;
 	private String nombreProfesor;
 		
@@ -25,22 +31,22 @@ public class DtoCurso {
 	public void setDescripcion(String pDescripcion) {
 		this.descripcion = pDescripcion;
 	}
-	public ArrayList<DtoTema> getTemas() {
+	public ArrayList<Tema> getTemas() {
 		return temas;
 	}
-	public void setTemas(ArrayList<DtoTema> pTemas) {
+	public void setTemas(ArrayList<Tema> pTemas) {
 		this.temas = pTemas;
 	}
-	public ArrayList<DtoEstudiante> getEstudiantes() {
+	public ArrayList<Estudiante> getEstudiantes() {
 		return estudiantes;
 	}
-	public void setEstudiantes(ArrayList<DtoEstudiante> pEstudiantes) {
+	public void setEstudiantes(ArrayList<Estudiante> pEstudiantes) {
 		this.estudiantes = pEstudiantes;
 	}
-	public ArrayList<DtoEvaluacion> getEvaluaciones() {
+	public ArrayList<Evaluacion> getEvaluaciones() {
 		return evaluaciones;
 	}
-	public void setEvaluaciones(ArrayList<DtoEvaluacion> pEvaluaciones) {
+	public void setEvaluaciones(ArrayList<Evaluacion> pEvaluaciones) {
 		this.evaluaciones = pEvaluaciones;
 	}
 	public String getIdProfesor() {
@@ -54,6 +60,12 @@ public class DtoCurso {
 	}
 	public void setNombreProfesor(String nombreProfesor) {
 		this.nombreProfesor = nombreProfesor;
+	}
+	public Profesor getProfesor() {
+		return profesor;
+	}
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
 	}
 	
 

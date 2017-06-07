@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import logicaDeNegocios.Bitacora;
+import logicaDeNegocios.BitacoraCSV;
+import logicaDeNegocios.BitacoraTXT;
+import logicaDeNegocios.BitacoraXML;
 import logicaDeNegocios.dao.DaoSubtema;
 import logicaDeNegocios.dto.DtoSubtema;
 
@@ -34,8 +38,15 @@ public class ServletSubtema2 extends HttpServlet {
 			response.sendRedirect("registrarSubtema");
 			
 		}else if(request.getParameter("editarSubtema")!=null){
+			//AQUI FALTA LA BITACORA Y TODITO JEJEJEJE
 			
 		}else if(request.getParameter("eliminarSubtema")!=null){
+			Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+			Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+			Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
+			csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado el subtema: "+request.getParameter("descripcionSubtema")+" del curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+			xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado el subtema: "+request.getParameter("descripcionSubtema")+" del curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+			txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado el subtema: "+request.getParameter("descripcionSubtema")+" del curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
 			DaoSubtema operacion=new DaoSubtema();
 			operacion.eliminarSubtema(request.getParameter("descripcionSubtema"));
 			response.sendRedirect("Subtema2.jsp");;
@@ -47,6 +58,12 @@ public class ServletSubtema2 extends HttpServlet {
 		}else if(request.getParameter("eliminarSubtema")!=null){
 			
 		}else if(request.getParameter("registrarSub")!=null){
+			Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+			Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+			Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
+			csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha registrado el subtema: "+request.getParameter("descripcionSubtema")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+			xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha registrado el subtema: "+request.getParameter("descripcionSubtema")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+			txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha registrado el subtema: "+request.getParameter("descripcionSubtema")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
 			DtoSubtema subtema=new DtoSubtema();
 			subtema.setDescripcion(request.getParameter("textDescripcionSubtema"));
 			DaoSubtema transferir=new DaoSubtema();

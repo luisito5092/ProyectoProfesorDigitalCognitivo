@@ -20,9 +20,8 @@ public class Curso {
 	private ArrayList<Tema> temas;
 	private ArrayList<Estudiante> estudiantes;
 	private ArrayList<Evaluacion> evaluaciones;
-	private String Jose="el más saico";
-	private String luis = "vara seca";
-	private String JEJE="lala";
+	private ArrayList<Bitacora> bitacoras;
+
 	//************************************** CONSTRUCTOR *****************************************
 	public Curso(String pCodigo, String pDescripcion){
 		setCodigo(pCodigo);
@@ -36,33 +35,38 @@ public class Curso {
 	//************************************** GETTERS & SETTERS *****************************************
 	public String getCodigo() {
 		return codigo;
-	}//Probando Github
+	}
 	public void setCodigo(String pCodigo) {
 		this.codigo = pCodigo;
+		actualizarBitacoras();
 	}
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String pDescripcion) {
 		this.descripcion = pDescripcion;
+		actualizarBitacoras();
 	}
 	public ArrayList<Tema> getTemas() {
 		return temas;
 	}
 	public void setTemas(ArrayList<Tema> pTemas) {
 		this.temas = pTemas;
+		actualizarBitacoras();
 	}
 	public ArrayList<Estudiante> getEstudiantes() {
 		return estudiantes;
 	}
 	public void setEstudiantes(ArrayList<Estudiante> pEstudiantes) {
 		this.estudiantes = pEstudiantes;
+		actualizarBitacoras();
 	}
 	public ArrayList<Evaluacion> getEvaluaciones() {
 		return evaluaciones;
 	}
 	public void setEvaluaciones(ArrayList<Evaluacion> pEvaluaciones) {
 		this.evaluaciones = pEvaluaciones;
+		actualizarBitacoras();
 	}
 	public Profesor getProfesor() {
 		return profesor;
@@ -70,9 +74,19 @@ public class Curso {
 
 	public void setProfesor(Profesor profesor) {
 		this.profesor = profesor;
+		actualizarBitacoras();
 	}
 
-	//************************************** HOLISWIS AMIWIS*****************************************
+	public ArrayList<Bitacora> getBitacoras() {
+		return bitacoras;
+	}
+
+	public void setBitacoras(ArrayList<Bitacora> bitacoras) {
+		this.bitacoras = bitacoras;
+		actualizarBitacoras();
+	}
+
+	//************************************** OTROS METODOS *****************************************
 	public void eliminarCurso(String idCurso){
 		DaoCurso borrar=new DaoCurso();
 		borrar.eliminarCurso(idCurso);
@@ -107,4 +121,17 @@ public class Curso {
 		temas.add(tema);
 	}
 	
+	private void actualizarBitacoras(){
+		DtoCurso dtoCurso=new DtoCurso();
+		dtoCurso.setCodigo(this.codigo);
+		dtoCurso.setDescripcion(this.descripcion);
+		dtoCurso.setEstudiantes(this.estudiantes);
+		dtoCurso.setProfesor(this.profesor);
+		dtoCurso.setTemas(this.temas);
+		dtoCurso.setEvaluaciones(this.evaluaciones);
+	}
+	
+	public void vincularBitacora(Bitacora pBitacora){
+		bitacoras.add(pBitacora);
+	}
 }

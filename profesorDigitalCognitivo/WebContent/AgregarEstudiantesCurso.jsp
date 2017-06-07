@@ -46,6 +46,7 @@
 				<tr>
 				<td>
 					<input type="hidden" name="CursoActual" value=<%=session.getAttribute("IdentificadorCurso").toString() %>>
+					<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
 					<input type="submit" value="Agregar Estudiante" name="agregarEstudianteCurso" onClick="alert('Se ha registrado el estudiante con éxito')"/>
 				</td>
 			</table>

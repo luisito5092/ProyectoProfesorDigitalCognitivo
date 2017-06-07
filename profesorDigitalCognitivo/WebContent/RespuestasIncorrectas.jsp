@@ -33,7 +33,9 @@
 					<td><button type="submit" name="agregarRIncorrecta" style="width: 36px; "> <span class="glyphicon glyphicon-plus"></span></button></td>
 				</tr>
 				<tr>
-				<td><input type="hidden" name="DescripcionTema" value=<%=session.getAttribute("DescripcionTema").toString() %>></td>
+				<td><input type="hidden" name="DescripcionTema" value=<%=session.getAttribute("DescripcionTema").toString() %>>
+				<input type="hidden" name="CodigoCursoActual" value="<%=session.getAttribute("IdentificadorCurso").toString() %>" >
+				<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor"></td>
 				<td><input type="hidden" name="DescripcionSubtema" value=<%=session.getAttribute("DescripcionSubtema").toString() %>>
 				<input type="submit" class="btn btn-primary" value="Finalizar" name="finalizarRIncorrectas" onClick="alert('Se ha registrado la respuesta con éxito')" style="height: 39px; "></td>
 				<td><input type="hidden" name="Pregunta" value=<%=session.getAttribute("Pregunta").toString() %>></td>
