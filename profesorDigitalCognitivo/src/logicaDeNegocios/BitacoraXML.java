@@ -25,13 +25,14 @@ public class BitacoraXML extends Bitacora {
 		
 	}
 
-	
+	//************************************** OTROS METODOS *****************************************
 	public void realizarRegistro(String email, String descripcion,String codigo){
-		DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+		DateFormat dateFormatFecha = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat dateFormatHora = new SimpleDateFormat("HH:mm:ss");
 		Date date = new Date();
 		try {
 			if(!getArchivo().exists()){
-				Element registros = new Element("registros");
+				Element registros = new Element("RegistroBitacora");
 				doc = new Document();
 				doc.setRootElement(registros);
 			}
@@ -40,7 +41,9 @@ public class BitacoraXML extends Bitacora {
 			}
 			
 			Element accion = new Element("descripcion");
-			accion.addContent(new Element("fecha").setText(dateFormat.format(date).toString()));
+			accion.addContent(new Element("correoProfesor").setText(email));
+			accion.addContent(new Element("fecha").setText(dateFormatFecha.format(date).toString()));
+			accion.addContent(new Element("hora").setText(dateFormatHora.format(date).toString()));
 			accion.addContent(new Element("correoProfesor").setText(email));
 			accion.addContent(new Element("descripcion").setText(descripcion));
 			accion.addContent(new Element("codigoCurso").setText(codigo));
@@ -54,25 +57,38 @@ public class BitacoraXML extends Bitacora {
 		}
 	}
 	
-	public ArrayList<DtoBitacora> leerRegistro(){
+	public ArrayList<DtoBitacora> leerRegistro(String fechaInicio,String fechaFinal){
 		ArrayList<DtoBitacora> listaBitacoras=new ArrayList<DtoBitacora>();
+		SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
 		try{
-			doc = (Document) builder.build(archivo);
-			Element raiz = doc.getRootElement();
-			List<Element> descripcionesEncontradas = raiz.getChildren("accion");
-			for(int descripcion = 0; descripcion < descripcionesEncontradas.size(); descripcion++){
-				DtoBitacora dto=new DtoBitacora();	
-				Element descrip = (Element) descripcionesEncontradas.get(descripcion);
-				dto.setFecha(descrip.getChildText("fecha"));
-				dto.setCorreoProfesor(descrip.getChildText("correoProfesor"));
-				dto.setDescripcion(descrip.getChildText("descripcion"));
-				dto.setDescripcion(descrip.getChildText("codigoCurso"));
-				listaBitacoras.add(dto);
+			//Date inicio = fechaHora.parse(fechaInicio);
+			//Date finall = fechaHora.parse(fechaFinal);
+			try{
+				doc = (Document) builder.build(archivo);
+				Element raiz = doc.getRootElement();
+				List<Element> descripcionesEncontradas = raiz.getChildren("descripcion");
+				for(int i = 0; i < descripcionesEncontradas.size(); i++){
+					Element descrip = (Element) descripcionesEncontradas.get(i);
+					//Date actual = fechaHora.parse(descrip.getChildText("fecha"));
+					//if(actual.after(inicio) || actual.before(finall)){
+						DtoBitacora dto=new DtoBitacora();
+						dto.setFecha(descrip.getChildText("fecha"));
+						dto.setHora(descrip.getChildText("hora"));
+						dto.setCorreoProfesor(descrip.getChildText("correoProfesor"));
+						dto.setDescripcion(descrip.getChildText("descripcion"));
+						dto.setDescripcion(descrip.getChildText("codigoCurso"));
+						listaBitacoras.add(dto);
+					//}
+					
+				}
 			}
-		}
-		catch(Exception e){
+			catch(Exception e){
+
+			}
+		}catch(Exception e){
 
 		}
+		
 		return listaBitacoras;
 	}
 		

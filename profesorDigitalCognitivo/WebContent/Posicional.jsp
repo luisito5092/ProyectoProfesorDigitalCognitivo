@@ -4,7 +4,8 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-	<%@ page import = "logicaDeNegocios.dao.DaoBitacora"%>
+	<%@ page import = "logicaDeNegocios.Bitacora"%>
+	<%@ page import = "logicaDeNegocios.BitacoraTXT"%>
 	<%@ page import = "logicaDeNegocios.dto.DtoBitacora"%>
 <html>
 <head>
@@ -19,8 +20,8 @@
 </head>
 </head>
 <body>
-	<% DaoBitacora listaBitacora=new DaoBitacora();
-	 DtoBitacora bitacora=new DtoBitacora(); %>
+	<% Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+session.getAttribute("logueado").toString()+".txt");
+	 DtoBitacora dto=new DtoBitacora(); %>
 	<header>
 		<div="main">
 			<div class="wrap">
@@ -46,16 +47,24 @@
         	<thead>
             <tr>
 
-              <th class="col-xs-11">Id Estudiante</th>
+              <th class="col-xs-2">Profesor</th>
+              <th class="col-xs-2">Fecha</th>
+              <th class="col-xs-2">Hora</th>
+              <th class="col-xs-3">Acción Realizada</th>
+              <th class="col-xs-2">Curso de la Acción</th>
             </tr>
           </thead>
           <tbody>
           	<tr>
 				<% 
-					for(int i=0; i<listaBitacora.consultarBitacoras(" ", " ",session.getAttribute("logueado").toString()).size();i++){
-						bitacora=listaBitacora.consultarBitacoras(" ", " ",session.getAttribute("logueado").toString()).get(i);	
+					for(int i=0; i<txt.leerRegistro(session.getAttribute("Fecha11").toString(), session.getAttribute("Fecha22").toString()).size();i++){
+						dto=txt.leerRegistro(session.getAttribute("Fecha11").toString(), session.getAttribute("Fecha22").toString()).get(i);	
 				%>
-							<td>"<%=bitacora.getCorreoProfesor()%>"- "<%=bitacora.getFecha()%>"-"<%=bitacora.getDescripcion()%>"- "<%=bitacora.getCodigoCurso()%>"</td>
+							<td><%=dto.getCorreoProfesor()%></td>
+        					<td><%=dto.getFecha()%></td>
+        					<td><%=dto.getHora()%></td>
+        					<td><%=dto.getDescripcion()%></td>
+        					<td><%=dto.getCodigoCurso()%></td>
         				</tr>
         				<%
         					}

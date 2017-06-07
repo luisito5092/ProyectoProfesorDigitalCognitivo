@@ -35,5 +35,5 @@ public abstract class Bitacora {
 	
 	//************************************** OTROS METODOS *****************************************
 	public abstract void realizarRegistro(String email,String descripcion,String codigo);
-	public abstract ArrayList<DtoBitacora> leerRegistro();
+	public abstract ArrayList<DtoBitacora> leerRegistro(String fechaInicio,String fechaFinal);
 }

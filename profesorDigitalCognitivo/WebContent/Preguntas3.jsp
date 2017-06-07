@@ -68,6 +68,8 @@
 											<input type="hidden" value="<%=TemaActual  %>" name="tema">
 											<input type="hidden" value="<%=pregunta.getDescripcionAyuda()  %>" name="ayuda">
 											<input type="hidden" value="<%=pregunta.getDescripcionPregunta()  %>" name="descripcion">
+											<input type="hidden" name="CodigoCursoActual" value="<%=session.getAttribute("IdentificadorCurso").toString() %>" >
+											<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
 										</form>
 									</td>
         				</tr>

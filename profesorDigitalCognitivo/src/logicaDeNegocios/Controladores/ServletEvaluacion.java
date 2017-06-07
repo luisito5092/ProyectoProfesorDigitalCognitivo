@@ -147,6 +147,13 @@ public class ServletEvaluacion extends HttpServlet {
 	}
 	else if(request.getParameter("GenerarPDF")!=null){
 		
+		Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+		Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+		Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
+		csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha descargado un PDF de la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+		xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha descargado un PDF de la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+		txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha descargado un PDF de la evaluación "+request.getParameter("NombreEvaluacionActual")+" del curso "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+		
 		String curso=request.getParameter("CodigoCursoActual");
 		String evaluacion=request.getParameter("NombreEvaluacion");
 		

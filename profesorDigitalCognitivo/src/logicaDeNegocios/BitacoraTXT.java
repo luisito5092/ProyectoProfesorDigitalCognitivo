@@ -14,24 +14,26 @@ package logicaDeNegocios;
 
 	public class BitacoraTXT extends Bitacora {
 		
+		//************************************** CONSTRUCTOR *****************************************
 		public BitacoraTXT(String pRuta){
 			super(pRuta);
 		}
 		
-		
+		//************************************** OTROS METODOS *****************************************
 		public void realizarRegistro(String email,String descripcion,String codigo){
 			boolean existeArchivo = getArchivo().exists();
-			DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+			DateFormat dateFormatFecha = new SimpleDateFormat("dd/MM/yyyy");
+			DateFormat dateFormatHora = new SimpleDateFormat("HH:mm:ss");
 			Date date = new Date();
 			
 			try{
 				FileWriter modificar = new FileWriter(getRuta(), true);
 				BufferedWriter bufferModificar = new BufferedWriter(modificar);
 				if(!existeArchivo){
-					bufferModificar.write("fecha" + "-" + "usuario" + "-" + "accion" + "-" + "codigoCurso");
+					bufferModificar.write("usuario" + "-" + "fecha" + "-" + "hora"+ "-" + "descripcion" + "-" + "codigoCurso");
 					bufferModificar.newLine();
 				}
-				bufferModificar.write(dateFormat.format(date).toString() + "-" + email + "-" + descripcion + "-" + codigo);
+				bufferModificar.write(email + "-" + dateFormatFecha.format(date).toString() + "-" + dateFormatHora.format(date) + "-" + descripcion + "-" + codigo);
 				bufferModificar.newLine();
 				bufferModificar.close();
 				modificar.close();
@@ -41,29 +43,42 @@ package logicaDeNegocios;
 
 		}
 		
-		public ArrayList<DtoBitacora> leerRegistro(){
+		public ArrayList<DtoBitacora> leerRegistro(String fechaInicio,String fechaFinal){
 			ArrayList<DtoBitacora> listaBitacoras=new ArrayList<DtoBitacora>();
-			try {
-	            BufferedReader b = new BufferedReader(new FileReader(getArchivo()));
-	            String readLine = "";
-	            
-	            boolean bandera = false;
-	            while ((readLine = b.readLine()) != null) {
-	            	if(!bandera){
-	            		bandera = true;
-	            	}
-	            	else{
-	            		DtoBitacora dto=new DtoBitacora();	
-	    				dto.setFecha(readLine.split("\\s*-\\s*")[0]);
-	    				dto.setCorreoProfesor(readLine.split("\\s*-\\s*")[1]);
-	    				dto.setDescripcion(readLine.split("\\s*-\\s*")[2]);
-	    				dto.setCodigoCurso(readLine.split("\\s*-\\s*")[3]);
-	    				listaBitacoras.add(dto);
-	            	}
-	            }
-	        } catch (Exception e) {
+			SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+			
+			try{
+				//Date inicio = fecha.parse(fechaInicio);
+				//Date finall = fecha.parse(fechaFinal);
+				
+				try {
+		            BufferedReader b = new BufferedReader(new FileReader(getArchivo()));
+		            String readLine = "";
+		            
+		            boolean bandera = false;
+		            while ((readLine = b.readLine()) != null) {
+		            	if(!bandera){
+		            		bandera = true;
+		            	}
+		            	//Date actual = fecha.parse(readLine.split("\\s*-\\s*")[1]);
+		            	//if(actual.after(inicio) && actual.before(finall)){
+		            	else{
+		            		DtoBitacora dto=new DtoBitacora();	
+							dto.setCorreoProfesor(readLine.split("\\s*-\\s*")[0]);
+		    				dto.setFecha(readLine.split("\\s*-\\s*")[1]);
+		    				dto.setHora(readLine.split("\\s*-\\s*")[2]);
+		    				dto.setDescripcion(readLine.split("\\s*-\\s*")[3]);
+		    				dto.setCodigoCurso(readLine.split("\\s*-\\s*")[4]);
+		    				listaBitacoras.add(dto);
+		            	}
+		            }
+		        } catch (Exception e) {
+
+		        }
+			}catch (Exception e) {
 
 	        }
+			
 			return listaBitacoras;
 		}
 

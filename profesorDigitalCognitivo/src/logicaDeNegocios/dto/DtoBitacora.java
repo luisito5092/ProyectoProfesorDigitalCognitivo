@@ -7,6 +7,7 @@ public class DtoBitacora {
 	private String codigoCurso;
 	private String descripcion;
 	private String fecha;
+	private String hora;
 	private Curso curso;
 	private String tipo;
 	
@@ -46,6 +47,13 @@ public class DtoBitacora {
 	public void setCodigoCurso(String codigoCurso) {
 		this.codigoCurso = codigoCurso;
 	}
+	public String getHora() {
+		return hora;
+	}
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+	
 	
 	
 }

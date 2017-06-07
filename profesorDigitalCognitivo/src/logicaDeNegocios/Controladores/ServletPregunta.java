@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import logicaDeNegocios.Bitacora;
+import logicaDeNegocios.BitacoraCSV;
+import logicaDeNegocios.BitacoraTXT;
+import logicaDeNegocios.BitacoraXML;
 import logicaDeNegocios.dao.DaoPregunta;
 import logicaDeNegocios.dto.DtoPregunta;
 
@@ -52,6 +56,12 @@ public class ServletPregunta extends HttpServlet {
 				response.sendRedirect("RespuestasIncorrectas.jsp");
 
 			}else{
+				Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+				Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+				Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
+				csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la pregunta: "+request.getParameter("pregunta")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+				xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la pregunta: "+request.getParameter("pregunta")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+				txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la pregunta: "+request.getParameter("pregunta")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
 				pregunta.crearPregunta(pasarPregunta.getPregunta(),pasarPregunta.getDescripcionPregunta(),
 						pasarPregunta.getDescripcionAyuda(), pasarPregunta.getRespuestaCorrecta(),
 						request.getParameter("DescripcionSubtema"), request.getParameter("DescripcionTema"));
@@ -63,12 +73,24 @@ public class ServletPregunta extends HttpServlet {
 			response.sendRedirect("RespuestasIncorrectas.jsp");
 		}
 		else if(request.getParameter("finalizarRIncorrectas")!=null){
+			Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+			Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+			Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
+			csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la pregunta: "+request.getParameter("Pregunta")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+			xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la pregunta: "+request.getParameter("Pregunta")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+			txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha agregado la pregunta: "+request.getParameter("Pregunta")+" al curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
 			pregunta.AgregarRespuestasIncorrectas(listaRespuestasIncorrectas, request.getParameter("Pregunta"),
 					request.getParameter("DescripcionSubtema"),request.getParameter("DescripcionTema"));
 			listaRespuestasIncorrectas.clear();
 			response.sendRedirect("Preguntas3.jsp");
 		}
 		else if(request.getParameter("eliminarPregunta")!=null){
+			Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
+			Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
+			Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
+			csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado la pregunta: "+request.getParameter("pregunta")+" del curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+			xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado la pregunta: "+request.getParameter("pregunta")+" del curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
+			txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado la pregunta: "+request.getParameter("pregunta")+" del curso: "+request.getParameter("CodigoCursoActual"), request.getParameter("CodigoCursoActual"));
 			DtoPregunta dtoPregunta = new DtoPregunta();
 			dtoPregunta.setTema(request.getParameter("tema"));
 			dtoPregunta.setSubtema(request.getParameter("subtema"));
@@ -85,7 +107,7 @@ public class ServletPregunta extends HttpServlet {
 			pasarPregunta.setSubtema(request.getParameter("subtema"));
 			DtoPregunta datos = pregunta.getDatosPregunta(pasarPregunta);
 			
-			if (request.getParameter("decripcion")=="SelecciÃ³n Ãšnica"){
+			if (request.getParameter("decripcion")=="Selección Única"){
 				response.sendRedirect("../ActualizarPreguntaSU.jsp?pregunta="+request.getParameter("pregunta")+"&descripcion="+
 						request.getParameter("descripcion")+"&ayuda="+datos.getDescripcionAyuda()+
 						"&respuesta="+datos.getRespuestaCorrecta());

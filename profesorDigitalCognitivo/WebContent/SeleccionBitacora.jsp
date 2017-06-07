@@ -38,15 +38,18 @@
 					<td><select class="selectpicker" name="comboboxBitacora" style="width: 153px; ">
 					<option value="CSV">CSV</option>
 					<option value="XML">XML</option>
-					<option value="Posicional">Posicional</option>
+					<option value="TXT">TXT</option>
 					</select></td>
+					
 				</tr>
 				
 				<tr>
 				<td>
 					<input type="submit" value="Consultar" name="ConsultarBitacoras">
 					<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
-				</td></tr>
+				</td>
+				<td><button type="submit" class="btn btn-primary" name=DescargarXML >Descargar Archivo</button></td>
+				</tr>
 			</table>
 		</form>
 	</div>
