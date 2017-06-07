@@ -4,8 +4,8 @@ import java.util.Hashtable;
 
 public class Encriptar {
 	
-	private static final String ORIGINAL= "¡·…ÈÕÌ”Û⁄˙—Ò‹¸";
-	private static final String REPLACEMENT= "AaEeIiOoUuNnUu";
+	private static final String ORIGINAL= "¬¡·…ÈÕÌ”Û⁄˙—Ò‹¸";
+	private static final String REPLACEMENT= "aAaEeIiOoUuNnUu";
 	
 	
 public static ArrayList<Integer> encriptaNumero (String textoTodo, String clave) {
@@ -47,11 +47,25 @@ public static ArrayList<Integer> encriptaNumero (String textoTodo, String clave)
         valorLetras.put('x', 24);
         valorLetras.put('y', 25);
         valorLetras.put('z', 26);
-        valorLetras.put(',',27);
+        valorLetras.put('%',27);
         valorLetras.put('-',28);
         valorLetras.put('_',29);
         valorLetras.put('ø',30);
-        valorLetras.put('w',31);
+        valorLetras.put('@',31);
+        valorLetras.put('0',32);
+        valorLetras.put('1',33);
+        valorLetras.put('2',34);
+        valorLetras.put('3',35);
+        valorLetras.put('4',36);
+        valorLetras.put('5',37);
+        valorLetras.put('6',38);
+        valorLetras.put('7',39);
+        valorLetras.put('8',40);
+        valorLetras.put('9',41);
+        valorLetras.put('w',42);
+        valorLetras.put(':',43);
+        valorLetras.put('.',44);
+        valorLetras.put('*',45);
         
         
         ArrayList<Integer> arrayNumEncr = new ArrayList<Integer>();
@@ -129,11 +143,25 @@ public static ArrayList<Integer> desencriptaNumero (String textoTodo, String cla
     valorLetras.put('x', 24);
     valorLetras.put('y', 25);
     valorLetras.put('z', 26);
-    valorLetras.put(',',27);
+    valorLetras.put('%',27);
     valorLetras.put('-',28);
     valorLetras.put('_',29);
     valorLetras.put('ø',30);
-    valorLetras.put('w',31);
+    valorLetras.put('@',31);
+    valorLetras.put('0',32);
+    valorLetras.put('1',33);
+    valorLetras.put('2',34);
+    valorLetras.put('3',35);
+    valorLetras.put('4',36);
+    valorLetras.put('5',37);
+    valorLetras.put('6',38);
+    valorLetras.put('7',39);
+    valorLetras.put('8',40);
+    valorLetras.put('9',41);
+    valorLetras.put('w',42);
+    valorLetras.put(':',43);
+    valorLetras.put('.',44);
+    valorLetras.put('*',45);
     
     
     ArrayList<Integer> arrayNumEncr = new ArrayList<Integer>();
@@ -204,11 +232,27 @@ public static String deNumeroATexto(ArrayList<Integer> encrNum){
     valorNumeros.put(24,'x');
     valorNumeros.put(25,'y');
     valorNumeros.put(26,'z');
-    valorNumeros.put(27,',');
+    valorNumeros.put(27,'%');
     valorNumeros.put(28,'-');
     valorNumeros.put(29,'_');
     valorNumeros.put(30,'ø');
-    valorNumeros.put(31,'w');
+    valorNumeros.put(30,'ø');
+    valorNumeros.put(31,'@');
+    valorNumeros.put(32,'0');
+    valorNumeros.put(33,'1');
+    valorNumeros.put(34,'2');
+    valorNumeros.put(35,'3');
+    valorNumeros.put(36,'4');
+    valorNumeros.put(37,'5');
+    valorNumeros.put(38,'6');
+    valorNumeros.put(39,'7');
+    valorNumeros.put(40,'8');
+    valorNumeros.put(41,'9');
+    valorNumeros.put(42,'w');
+    valorNumeros.put(43,':');
+    valorNumeros.put(44,'.');
+    valorNumeros.put(45,'*');
+    
     
 
     
@@ -223,8 +267,8 @@ public static String deNumeroATexto(ArrayList<Integer> encrNum){
 
 public static int validarSumaEn(int suma){
 	int aux=0;
-	if(suma>31){
-		aux=suma-31;
+	if(suma>45){
+		aux=suma-45;
 	}
 	else{
 		aux=suma;
@@ -235,7 +279,7 @@ public static int validarSumaEn(int suma){
 public static int validarSumaDes(int suma){
 	int aux=0;
 	if(suma<0){
-		aux=suma+31;
+		aux=suma+45;
 	}
 	else{
 		aux=suma;
@@ -255,19 +299,33 @@ public static String stripAccents(String str) {
 	return new String(array);
 	}
 
-public static void main (String [ ] args) {
-	
-	System.out.println("Texto: "+"øcomes Queso por la tarde?");
-	System.out.println("EncriptaciÛn");
-	ArrayList<Integer> listaEn = encriptaNumero("øcomes Queso por la tarde toda la manana y por toda la semana lalalala?", "turo");
+public  static String codificar(String texto){
+	ArrayList<Integer> listaEn = encriptaNumero(texto, "tango");
 	String encript = deNumeroATexto(listaEn);
-	System.out.println(encript);
-	
-	
-	System.out.println("DesencriptaciÛn");
-	ArrayList<Integer> listaDes = desencriptaNumero(encript, "turo");
-	String desencript = deNumeroATexto(listaDes);
-	System.out.println(desencript);
+	return encript;
 }
 
+public static String decodificar(String texto){
+	ArrayList<Integer> listaDes = desencriptaNumero(texto, "tango");
+	String desencript = deNumeroATexto(listaDes);
+	return desencript;
+}
+public static void main (String [ ] args) {
+	
+	//System.out.println("Texto: "+"øcomes Queso por la tarde?");
+	//System.out.println("EncriptaciÛn");
+	//ArrayList<Integer> listaEn = encriptaNumero("øcomes Queso por la tarde toda la manana y por toda la semana lalalala?", "turo");
+	//String encript = deNumeroATexto(listaEn);
+	//String prueba=codificar("Se ha eliminado el curso:");
+	//System.out.println(codificar(prueba));
+	
+	
+//	System.out.println("DesencriptaciÛn");
+	//ArrayList<Integer> listaDes = desencriptaNumero(encript, "turo");
+	//String desencript = deNumeroATexto(listaDes);
+	System.out.println(decodificar("i1l9gr6h"));
+	//System.out.println(decodificar("7f -b ut?n_ue_ ym ?v0z¬ør 1jsys_uo um 4s_mt7p0 0v?zy3ts8ei8*n-ujzfr3n"));
+	//System.out.println(decodificar("m6f"));
+	//System.out.println(decodificar("7f -b ym?tx2brv ym ?v0z¬ør m6f"));
+}
 }

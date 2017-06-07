@@ -104,26 +104,40 @@ public class ServletCurso extends HttpServlet {
     			
     		//**************************************XML************************************************/
     		}else if(request.getParameter("comboboxBitacora").equals("XML")){
-    			   			
+    			/*HttpSession session = request.getSession(true);
+    			response.setContentType("application/xml");
+    			ServletOutputStream out2= response.getOutputStream();
+    			response.setHeader("Content-Disposition","attachment;filename=Bitacora.xml");
+    			FileInputStream in = new FileInputStream(System.getProperty("user.home")+"/Bitacora"+session.getAttribute("logueado").toString()+".xml");
+    			byte[] buffer = new byte[4096];
+    			int length;
+    			while ((length = in.read(buffer)) > 0){
+    			    out2.write(buffer, 0, length);
+    			}
+    			in.close();
+    			out2.flush();
+    			*/
+    			
+    			HttpSession session = request.getSession(true);
     			response.setContentType("application/xml");
     			ServletOutputStream out= response.getOutputStream();
     			String inicio=request.getParameter("fechaInicio").toString();
     			String finall=request.getParameter("fechaFinal").toString();
-    			HttpSession session = request.getSession(true);
-    			Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+session.getAttribute("logueado").toString()+".txt");
+    			//HttpSession session = request.getSession(true);
+    			Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+session.getAttribute("logueado").toString()+".csv");
     			
     			try {
     				Element bitacora = new Element("RegistroBitacora");
     				Document doc = new Document(bitacora);
     				doc.setRootElement(bitacora);
     				
-    				for(int i=0;i<txt.leerRegistro(inicio, finall).size();i++){
+    				for(int i=0;i<csv.leerRegistro(inicio, finall).size();i++){
 						Element accion = new Element("descripcion");
-						accion.setAttribute(new Attribute("codigo", txt.leerRegistro(inicio, finall).get(i).getCodigoCurso()));
-						accion.addContent(new Element("fecha").setText(txt.leerRegistro(inicio, finall).get(i).getFecha()));
-						accion.addContent(new Element("hora").setText(txt.leerRegistro(inicio, finall).get(i).getHora()));
-						accion.addContent(new Element("descripcion").setText(txt.leerRegistro(inicio, finall).get(i).getDescripcion()));
-						accion.addContent(new Element("emailProfesor").setText(txt.leerRegistro(inicio, finall).get(i).getCorreoProfesor()));
+						accion.setAttribute(new Attribute("codigo", csv.leerRegistro(inicio, finall).get(i).getCodigoCurso()));
+						accion.addContent(new Element("fecha").setText(csv.leerRegistro(inicio, finall).get(i).getFecha()));
+						accion.addContent(new Element("hora").setText(csv.leerRegistro(inicio, finall).get(i).getHora()));
+						accion.addContent(new Element("descripcion").setText(csv.leerRegistro(inicio, finall).get(i).getDescripcion()));
+						accion.addContent(new Element("emailProfesor").setText(csv.leerRegistro(inicio, finall).get(i).getCorreoProfesor()));
 						doc.getRootElement().addContent(accion);					
 					}
     				XMLOutputter xmlOutput = new XMLOutputter();
@@ -134,6 +148,7 @@ public class ServletCurso extends HttpServlet {
     			  } finally{
     					out.close();
     			}
+    			
     			
     		//*****************************************************TXT*********************************************************/
     		}else if(request.getParameter("comboboxBitacora").equals("TXT")){
@@ -190,7 +205,7 @@ public class ServletCurso extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
 		DtoCurso curso= new DtoCurso();
 		curso.setCodigo(request.getParameter("CodigoCurso"));
 		curso.setDescripcion(request.getParameter("Descripcion"));
@@ -202,9 +217,9 @@ public class ServletCurso extends HttpServlet {
 			Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".csv");
 			Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".xml");
 			Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("correoProfesor")+".txt");
-			csv.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado el curso: "+request.getParameter("CodigoCurso"), request.getParameter("CodigoCurso"));
-			xml.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado el curso: "+request.getParameter("CodigoCurso"), request.getParameter("CodigoCurso"));
-			txt.realizarRegistro(request.getParameter("correoProfesor"), "Se ha eliminado el curso: "+request.getParameter("CodigoCurso"), request.getParameter("CodigoCurso"));
+			csv.realizarRegistro(request.getParameter("correoProfesor"), "se ha eliminado el curso "+request.getParameter("CodigoCurso"), request.getParameter("CodigoCurso"));
+			xml.realizarRegistro(request.getParameter("correoProfesor"), "se ha eliminado el curso "+request.getParameter("CodigoCurso"), request.getParameter("CodigoCurso"));
+			txt.realizarRegistro(request.getParameter("correoProfesor"), "se ha eliminado el curso "+request.getParameter("CodigoCurso"), request.getParameter("CodigoCurso"));
 			cursoFabricado.eliminarCurso(cursoFabricado.getCodigo());
 			response.sendRedirect("MisCursos.jsp");
 			
@@ -212,9 +227,9 @@ public class ServletCurso extends HttpServlet {
 			Bitacora csv=new BitacoraCSV(System.getProperty("user.home")+"/Bitacora"+request.getParameter("SesionActual")+".csv");
 			Bitacora xml=new BitacoraXML(System.getProperty("user.home")+"/Bitacora"+request.getParameter("SesionActual")+".xml");
 			Bitacora txt=new BitacoraTXT(System.getProperty("user.home")+"/Bitacora"+request.getParameter("SesionActual")+".txt");
-			csv.realizarRegistro(request.getParameter("SesionActual"), "Se ha asignado el curso: "+request.getParameter("CodigoCursoSinAsignar")+" al profesor "+request.getParameter("SesionActual"), request.getParameter("CodigoCursoSinAsignar"));
-			xml.realizarRegistro(request.getParameter("SesionActual"), "Se ha asignado el curso: "+request.getParameter("CodigoCursoSinAsignar")+" al profesor "+request.getParameter("SesionActual"), request.getParameter("CodigoCursoSinAsignar"));
-			txt.realizarRegistro(request.getParameter("SesionActual"), "Se ha asignado el curso: "+request.getParameter("CodigoCursoSinAsignar")+" al profesor "+request.getParameter("SesionActual"), request.getParameter("CodigoCursoSinAsignar"));
+			csv.realizarRegistro(request.getParameter("SesionActual"), "se ha asignado el curso "+request.getParameter("CodigoCursoSinAsignar")+" al profesor "+request.getParameter("SesionActual"), request.getParameter("CodigoCursoSinAsignar"));
+			xml.realizarRegistro(request.getParameter("SesionActual"), "se ha asignado el curso "+request.getParameter("CodigoCursoSinAsignar")+" al profesor "+request.getParameter("SesionActual"), request.getParameter("CodigoCursoSinAsignar"));
+			txt.realizarRegistro(request.getParameter("SesionActual"), "se ha asignado el curso "+request.getParameter("CodigoCursoSinAsignar")+" al profesor "+request.getParameter("SesionActual"), request.getParameter("CodigoCursoSinAsignar"));
 			cursoFabricado.asignarProfesor(request.getParameter("SesionActual"), request.getParameter("CodigoCursoSinAsignar"));
 			response.sendRedirect("CursosNoAsignados.jsp");
 			

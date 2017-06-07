@@ -27,7 +27,7 @@ public class BitacoraXML extends Bitacora {
 
 	//************************************** OTROS METODOS *****************************************
 	public void realizarRegistro(String email, String descripcion,String codigo){
-		DateFormat dateFormatFecha = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat dateFormatFecha = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat dateFormatHora = new SimpleDateFormat("HH:mm:ss");
 		Date date = new Date();
 		try {
@@ -59,7 +59,7 @@ public class BitacoraXML extends Bitacora {
 	
 	public ArrayList<DtoBitacora> leerRegistro(String fechaInicio,String fechaFinal){
 		ArrayList<DtoBitacora> listaBitacoras=new ArrayList<DtoBitacora>();
-		SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
 		try{
 			//Date inicio = fechaHora.parse(fechaInicio);
 			//Date finall = fechaHora.parse(fechaFinal);

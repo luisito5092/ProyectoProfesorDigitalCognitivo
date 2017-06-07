@@ -48,7 +48,7 @@
 					<input type="submit" value="Consultar" name="ConsultarBitacoras">
 					<input type="hidden" value="<%=session.getAttribute("logueado").toString()%>" name="correoProfesor">
 				</td>
-				<td><button type="submit" class="btn btn-primary" name=DescargarXML >Descargar Archivo</button></td>
+				
 				</tr>
 			</table>
 		</form>
